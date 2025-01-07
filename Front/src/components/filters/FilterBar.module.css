@@ -1,0 +1,188 @@
+.container {
+  position: absolute;
+  width: 450px;
+  right: 2%;
+  top: 27%;
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Borde semitransparente */
+  border-radius: 12px; /* Bordes redondeados más suaves */
+  background-color: #007bff0a; /* Fondo semitransparente */
+  backdrop-filter: blur(15px); 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Sombra sutil */
+}
+
+.selectors{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+}
+.select {
+  appearance: none; 
+  -webkit-appearance: none; 
+  -moz-appearance: none; 
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  background-size: 16px; 
+  background-color: white;
+  width: 100%;
+  padding-right: 32px;
+}
+.select-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 200px;
+}
+
+.select-wrapper::after {
+  content: '▼'; 
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  pointer-events: none; 
+  font-size: 12px;
+  color: #999;
+}
+
+
+.option {
+  padding: 8px;
+  background-color: #fff;
+  color: #333;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+}
+
+.option:hover {
+  background-color: #f0f0f0; 
+}
+
+/* Cambiar el color de borde y de fondo cuando se selecciona el select */
+.select:focus {
+  border-color: #458855; 
+  outline: none; 
+}
+
+
+.range {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.range input {
+  padding: 8px;
+  width: 200px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: #fff;
+  color: #333;
+  transition: border-color 0.3s ease;
+}
+
+.range input:focus {
+  border-color: #458855; 
+  outline: none;
+}
+
+.actions{
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+}
+.button {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  margin-right: 8px;
+}
+.resetButton {
+  padding: 8px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #333;
+  transition: background-color 0.3s ease;
+  border-radius: 50%;
+  position: relative;
+}
+
+.resetButton:hover {
+  background-color: #ece3e3;
+}
+
+/* Usando ::after para insertar el texto */
+.resetButton::after {
+  content: ""; /* Texto que aparecerá al hacer hover */
+  position: absolute;
+  left: 340%; 
+  top: -50%;
+  width: 120px;
+  transform: translateX(-50%);
+  opacity: 0; /* Inicialmente oculto */
+  visibility: hidden; /* Inicialmente oculto */
+  font-size: 14px;
+  color: white;
+  background-color: #5a6368;
+  margin-top: 16px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  transition: opacity .3s step-start, visibility 0s ease; 
+}
+
+/* Mostrar el texto cuando se hace hover */
+.resetButton:hover::after {
+  content: "Reiniciar Filtros";
+  opacity: 1; 
+  visibility: visible; 
+  transition: opacity .3s step-end, visibility .3s ease;
+}
+/* Botón de filtros */
+.filterButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.filterButton:hover {
+  background-color: #0056b3;
+}
+
+/* Texto del botón */
+.filterButtonText {
+  margin-left: 4px;
+  font-size: 14px;
+}

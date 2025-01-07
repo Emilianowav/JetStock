@@ -1,0 +1,27 @@
+/* components/buttons/MenuButton.module.css */
+.button {
+  width: 100%;
+  padding: 24px 16px;
+  color: #222;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 16px;
+  transition: background-color .3s ease;
+}
+
+.button:hover {
+  background-color: #efeff3;
+}
+
+.active {
+  border-right: solid 3px #6c6cd4;
+  background-color: #efeff3;
+}
+
+.icon {
+  font-size: 16px;
+}

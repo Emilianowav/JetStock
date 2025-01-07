@@ -1,0 +1,79 @@
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: 64px 48px;
+  gap: 24px;
+}
+.functions{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.functionSection{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items:flex-start;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+  gap: 16px;
+  border-radius: 6px;
+  padding: 16px;
+  background-color: #f7e5e518;
+  background-image: radial-gradient(#f7545400 10%, transparent 10%),
+    radial-gradient(#f7545400 10%, transparent 10%),
+    linear-gradient(
+      45deg,
+      #5f54f711 25%,
+      transparent 25%,
+      transparent 75%,
+      #5f54f718 75%
+    ),
+    linear-gradient(
+      -45deg,
+      #5f54f711 25%,
+      transparent 25%,
+      transparent 75%,
+      #5f54f711 75%
+    );
+  background-size:
+    100px 100px,
+    100px 100px,
+    50px 50px,
+    50px 50px;
+  background-position:
+    0 0,
+    50px 50px,
+    0 0,
+    25px 25px;
+}
+.functionTitle{
+  font-size: 28px;
+  color:  black;
+  font-weight: bolder;
+}
+.functionDescription{
+  font-size: 18px;
+  color:  black;
+  
+}
+.title {
+  font-size: 24px;
+  color: black;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+
+.searchBarContainer {
+  flex: 1; 
+}

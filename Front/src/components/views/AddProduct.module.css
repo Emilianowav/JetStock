@@ -1,0 +1,68 @@
+.container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 16px 32px;
+  gap: 24px;
+  overflow-y: auto;
+  background-color: white;
+}
+.successMessage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #28a745; 
+  padding: 20px;
+  border-radius: 8px;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+
+.message {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 20px; 
+  width: 100%;
+}
+
+
+.buttonAdd {
+  padding: 10px 20px;
+  border: 1px solid #ccc; /* Borde gris claro */
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 5px 0;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+  color: white;
+}
+
+.buttonAdd:hover {
+  outline: 2px solid #ccc; /* Añadimos un outline sin afectar el tamaño */
+}
+
+.buttonClose {
+  transition: color 0.1s ease;
+}
+
+.buttonClose:hover {
+  color: black;
+}
+
+
+.buttonClose {
+  padding: 12px 0px;
+  transition: color 0.1s ease;
+}
+.buttonClose:hover{
+  color: black;
+}

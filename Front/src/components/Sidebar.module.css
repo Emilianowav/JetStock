@@ -1,0 +1,121 @@
+/* Contenedor general */
+.container {
+  position: relative;
+  display: flex;
+  width: 100%;
+  max-height: 100vh;
+  background-color: #f9f9f9;
+  position: relative; 
+}
+
+/* Sidebar */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  overflow-y: auto;
+  border-right: 1px solid #eee9e9;
+  transition: width 0.3s ease-in-out;
+}
+
+.sidebar.closed {
+  width: 0; /* Cuando el menú está cerrado */
+}
+
+.sidebar.open {
+  width: 350px; /* Cuando el menú está abierto */
+}
+
+/* Contenedor de contenido */
+.content {
+  width: 100%;
+}
+
+/* Botón de flecha con posición absoluta */
+.toggleButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 10px;
+  position: absolute;
+  top: 10px; /* Alineación vertical fija */
+  z-index: 10;
+  background-color: transparent;
+  border-radius: 50%;
+  transition: left 0.3s ease-in-out; /* Transición suave */
+}
+
+/* Cuando el sidebar está abierto */
+.toggleOpen {
+  left: calc(300px - 20px); /* Posición dinámica: ancho del sidebar menos un margen */
+}
+
+/* Cuando el sidebar está cerrado */
+.toggleClosed {
+  left: 8px; /* Posición fuera del contenedor cerrado */
+}
+
+
+
+/* Mostrar el mensaje emergente al hacer hover */
+.toggleButton::after {
+  content: ""; 
+  position: absolute;
+  left: 140%; /* A la derecha del icono */
+  top: 50%;
+  transform: translateY(-50%); /* Centrado verticalmente */
+  font-size: 14px;
+  color: white;
+  background-color: #333;
+  padding: 5px 10px;
+  border-radius: 8px;
+  opacity: 0; /* Inicialmente oculto */
+  visibility: hidden; /* Inicialmente oculto */
+  white-space: nowrap;
+  transition: opacity 1s step-start, visibility 0s ease; 
+}
+
+/* Mensaje para 'Cerrar Menú' cuando el sidebar está abierto */
+.toggleOpen:hover::after {
+  content: "Cerrar Menú";
+  opacity: 1; 
+  visibility: visible; 
+  transition: opacity 1s step-end, visibility .3s ease;
+}
+
+/* Mensaje para 'Abrir Menú' cuando el sidebar está cerrado */
+.toggleClosed:hover::after {
+  content: "Abrir Menú";
+  opacity: 1;
+  visibility: visible; 
+  transition: opacity 1s step-end, visibility .3s ease;
+}
+
+/* Estilo de hover para el botón */
+.toggleButton:hover {
+  background-color: #f0f0f0;
+}
+
+/* Pseudo-elemento para los iconos */
+.icon {
+  position: relative; /* Necesario para colocar el pseudo-elemento correctamente */
+}
+
+.icon:hover::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 120%; /* Coloca el texto a la derecha del icono */
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: #666;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  background-color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}

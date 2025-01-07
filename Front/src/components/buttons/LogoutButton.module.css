@@ -1,0 +1,38 @@
+/* Estilos del botón de cerrar sesión */
+.logoutButton {
+  display: flex;
+  align-items: center; /* Alinea el ícono y el texto */
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s ease;
+  border: none;
+  background-color: transparent;
+  background-color: #b34747 ;
+  color: white;
+}
+
+/* Efecto de hover */
+.logoutButton:hover {
+  background-color: #8c3b3b ;
+}
+
+/* Estilo de la parte que contiene el botón */
+.greetingContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Estilo para el ícono */
+.logoutIcon {
+  margin-right: 12px;
+  color: white;
+  font-size: 22px; 
+}
+/* Estilo del texto */
+.greeting {
+  font-size: 18px;
+  font-weight: bold;
+}

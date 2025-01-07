@@ -1,0 +1,67 @@
+.formContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid #c29a9a;
+  border-radius: 8px;
+  max-width: 800px;
+  margin: auto;
+  background-color: #f9f9f9;
+}
+
+.header {
+  grid-column: span 3;
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+  color: #333;
+  margin-bottom: 16px;
+  border-bottom: 2px solid #c29a9a;
+  padding-bottom: 8px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.textAreaGroup {
+  grid-column: span 3;
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.input, .select, .textArea {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.input:focus, .select:focus, .textArea:focus {
+  border-color: #007BFF;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.textArea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.buttonGroup {
+  grid-column: span 3;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}

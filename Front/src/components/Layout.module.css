@@ -1,0 +1,20 @@
+/* Importar la fuente Funnel Sans */
+@import url('https://fonts.googleapis.com/css2?family=Funnel+Sans:wght@400;700&display=swap');
+
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; 
+   font-family: 'Funnel Sans', sans-serif;
+}
+
+.content {
+  display: flex;
+  flex: 1; 
+}
+
+.mainContent {
+  flex: 1; /* Toma el espacio restante del contenedor padre */
+  overflow: hidden; /* Previene scroll del layout general */  
+}

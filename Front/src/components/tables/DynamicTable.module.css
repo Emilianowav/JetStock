@@ -1,0 +1,63 @@
+.tableContainer {
+  width: 100%;
+  background-color: var(--background-color, #f4f4f4);
+  border: 1px solid var(--secondary-color, #e0e0e0);
+  border-radius: 4px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  margin: 16px auto;
+  max-width: 100%;
+}
+
+.table {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+}
+
+.thead{
+  width: 100%;
+}
+
+.tr{
+  display: flex;
+  flex-direction: row;
+}
+
+.th, .td {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  text-align: left;
+  padding: 18px;
+  border-bottom: 1px solid var(--secondary-color, #c9b8b8); /* Borde inferior gris */
+}
+
+.th {
+  display: flex;
+  align-items: center;
+  background-color: var(--primary-color, #f9f9f9); 
+  font-weight: bold;
+}
+
+/* Fila activa */
+.tr:hover {
+  background-color: var(--hover-secondary, #e0e0e0); /* Color de fondo al pasar el mouse */
+}
+/* Estilos para los botones de acción */
+.actionButton {
+  background-color: var(--primary-color, #254567); /* Fondo del botón */
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.actionButton:hover {
+  background-color: var(--hover-primary, #4a5156); /* Fondo del botón al hacer hover */
+}
+.sortButton{
+  margin-left: 10px;
+  font-size: 14px;
+}

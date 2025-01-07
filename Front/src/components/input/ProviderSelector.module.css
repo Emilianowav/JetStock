@@ -1,0 +1,55 @@
+.selectors{
+  position: relative;
+}
+.suggestions {
+  position: absolute;
+  top: 0;
+  left: 190px;
+  width: 200px;
+  max-height: 150px;
+  overflow-y: auto;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  box-sizing: content-box; /* Asegura que el padding no afecte el ancho */
+}
+
+.suggestions::-webkit-scrollbar {
+  width: 8px; /* Define un ancho fijo para la barra de desplazamiento */
+}
+
+.suggestions::-webkit-scrollbar-thumb {
+  background-color: #ccc; /* Estilo de la barra */
+  border-radius: 4px;
+}
+
+.suggestions::-webkit-scrollbar-track {
+  background-color: #f9f9f9;
+}
+
+.suggestion {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.suggestion:hover {
+  background-color: #f0f0f0;
+}
+
+.input {
+  width: calc(100% - 8px); /* Ajuste para compensar la barra de desplazamiento */
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.input:focus {
+  border-color: #458855;
+  outline: none;
+}
