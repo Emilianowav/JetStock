@@ -7,13 +7,63 @@
   gap: 24px;
 }
 
-.title {
+
+.functions{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 32px 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  --s: 65px; 
+  --c1: #a0c4ff; /* Azul claro */
+  --c2: #ffd6a5; /* Naranja pastel */
+  --c3: #ffadad; /* Rosa pastel */
+  --_c: 75%, var(--c3) 52.72deg, #0000 0;
+  --_g1: conic-gradient(from -116.36deg at 25% var(--_c));
+  --_g2: conic-gradient(from 63.43deg at 75% var(--_c));
+  background: var(--_g1), var(--_g1) calc(3 * var(--s)) calc(var(--s) / 2),
+    var(--_g2), var(--_g2) calc(3 * var(--s)) calc(var(--s) / 2),
+    conic-gradient(
+      var(--c2) 63.43deg,
+      var(--c1) 0 116.36deg,
+      var(--c2) 0 180deg,
+      var(--c1) 0 243.43deg,
+      var(--c2) 0 296.15deg,
+      var(--c1) 0
+    );
+  background-size: calc(2 * var(--s)) var(--s);
+}
+.functionSection{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items:flex-start;
+  gap: 16px;
+  border-radius: 6px;
+  padding: 16px;
+  background-color: white;
+}
+.functionTitle{
   font-size: 24px;
-  color: #333;
-  font-weight: bold;
-  text-transform: uppercase;
+  color:  black;
+  font-weight: bolder;
+  line-height: 32px;
+}
+.functionDescription{
+  font-size: 16px;
+  color:  black;
+  
 }
 
+
+.title {
+  width: 100%;
+  font-size: 32px;
+  color: black;
+}
 .filters {
   display: flex;
   justify-content: space-between;

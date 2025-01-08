@@ -3,6 +3,9 @@ import React, { useState, useEffect } from "react";
 import DynamicTable from "../../tables/DynamicTable";
 import styles from "./ClientsView.module.css";
 import SearchBar from "../../filters/SearchBar";
+import Button from "../../buttons/PrimaryButton";
+import { FaPlus } from "react-icons/fa6";
+import { FaClipboardList } from "react-icons/fa";
 
 interface RowData {
   [key: string]: string | number | boolean | undefined;
@@ -46,6 +49,18 @@ const ClienteList = () => {
 
   return (
     <div className={styles.container}>
+      <div className={styles.functions}>
+        <div className={styles.functionSection}>
+          <h3 className={styles.functionTitle}>Registrar</h3>
+          <p className={styles.functionDescription}>Registra a un nuevo  cliente.</p>
+          <Button text="Agregar"  icon={<FaPlus />} />
+        </div>
+        <div className={styles.functionSection}>
+          <h3 className={styles.functionTitle}>Modificar</h3>
+          <p className={styles.functionDescription}>Modifica los datos  de tus clientes.</p>
+          <Button text="Administrar" icon={<FaClipboardList />} />
+        </div>
+      </div>
       <h2 className={styles.title}>Lista de Clientes</h2>
       <SearchBar onSearch={() => {}} />
       <DynamicTable

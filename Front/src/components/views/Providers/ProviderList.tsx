@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import DynamicTable from "../../tables/DynamicTable";
 import SearchBar from "../../filters/SearchBar";
 import styles from "./ProviderList.module.css";
+import Button from "../../buttons/PrimaryButton";
+import { FaPlus } from "react-icons/fa6";
+import { FaClipboardList } from "react-icons/fa";
 
 interface Column {
   key: string;
@@ -35,6 +38,18 @@ const ProviderList: React.FC = () => {
 
   return (
     <div className={styles.container}>
+      <div className={styles.functions}>
+        <div className={styles.functionSection}>
+          <h3 className={styles.functionTitle}>Agregar</h3>
+          <p className={styles.functionDescription}>Agrega un nuevo proveedor a tu lista.</p>
+          <Button text="Agregar"  icon={<FaPlus />} />
+        </div>
+        <div className={styles.functionSection}>
+          <h3 className={styles.functionTitle}>Modificar</h3>
+          <p className={styles.functionDescription}>Modifica las informacion de tus proveedores.</p>
+          <Button text="Administrar" icon={<FaClipboardList />} />
+        </div>
+      </div>
       <h2 className={styles.title}>Lista de Proveedores</h2>
       <SearchBar onSearch={handleSearch} />
       <div>

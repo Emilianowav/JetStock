@@ -8,62 +8,58 @@
 }
 .functions{
   display: flex;
+  flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  margin-bottom: 24px;
+  padding: 32px 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  --s: 200px; /* control the size */
+  --c1: #1d1d1d;
+  --c2: #4e4f51;
+  --c3: #3c3c3c;
+
+  background: repeating-conic-gradient(
+        from 30deg,
+        #0000 0 120deg,
+        var(--c3) 0 180deg
+      )
+      calc(0.5 * var(--s)) calc(0.5 * var(--s) * 0.577),
+    repeating-conic-gradient(
+      from 30deg,
+      var(--c1) 0 60deg,
+      var(--c2) 0 120deg,
+      var(--c3) 0 180deg
+    );
+  background-size: var(--s) calc(var(--s) * 0.577); 
+  
 }
 .functionSection{
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items:flex-start;
-  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
   gap: 16px;
   border-radius: 6px;
   padding: 16px;
-  background-color: #f7e5e518;
-  background-image: radial-gradient(#f7545400 10%, transparent 10%),
-    radial-gradient(#f7545400 10%, transparent 10%),
-    linear-gradient(
-      45deg,
-      #5f54f711 25%,
-      transparent 25%,
-      transparent 75%,
-      #5f54f718 75%
-    ),
-    linear-gradient(
-      -45deg,
-      #5f54f711 25%,
-      transparent 25%,
-      transparent 75%,
-      #5f54f711 75%
-    );
-  background-size:
-    100px 100px,
-    100px 100px,
-    50px 50px,
-    50px 50px;
-  background-position:
-    0 0,
-    50px 50px,
-    0 0,
-    25px 25px;
+  background-color: white;
 }
 .functionTitle{
-  font-size: 28px;
+  font-size: 24px;
   color:  black;
   font-weight: bolder;
+  line-height: 32px;
 }
 .functionDescription{
-  font-size: 18px;
+  font-size: 16px;
   color:  black;
   
 }
 .title {
-  font-size: 24px;
+  width: 100%;
+  font-size: 32px;
   color: black;
-  font-weight: bold;
-  text-transform: uppercase;
 }
 
 .filters {
@@ -76,4 +72,12 @@
 
 .searchBarContainer {
   flex: 1; 
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  justify-content: center;
+  
 }

@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import DynamicTable from "../../tables/DynamicTable";
 import SearchBar from "../../filters/SearchBar";
 import styles from "./PurchaseOrder.module.css";
+import Button from "../../buttons/PrimaryButton";
+import { FaPlus } from "react-icons/fa6";
+import { FaClipboardList } from "react-icons/fa";
 
 // Definición de la interfaz para columnas
 interface Column {
@@ -56,11 +59,22 @@ const PurchaseOrderView: React.FC = () => {
 
   return (
     <div className={styles.container}>
+        
+      <div className={styles.functions}>
+        <div className={styles.functionSection}>
+          <h3 className={styles.functionTitle}>Crear</h3>
+          <p className={styles.functionDescription}>Crea una nueva orden de compra.</p>
+          <Button text="Agregar"  icon={<FaPlus />} />
+        </div>
+        <div className={styles.functionSection}>
+          <h3 className={styles.functionTitle}>.</h3>
+          <p className={styles.functionDescription}>.</p>
+          <Button text="Administrar" icon={<FaClipboardList />} />
+        </div>
+      </div>
       <h2 className={styles.title}>Ordenes de Compra</h2>
 
-        <SearchBar onSearch={handleSearch} />
-
-
+      <SearchBar onSearch={handleSearch} />
         {filteredOrders.length > 0 ? (
           <DynamicTable
             columns={columns}

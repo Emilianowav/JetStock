@@ -4,11 +4,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 6px;
   transition: all 0.3s ease-in-out;
-  padding-block: 6px;
-  padding-inline: 12px;
+  padding: 6px 10px;
   background-color: #254567;
-  border-radius: 9999px;
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -25,9 +25,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
   height: 24px;
-  transition: all 0.3s ease-in-out;
 }
 
 .button:hover {

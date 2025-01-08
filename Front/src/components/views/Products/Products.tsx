@@ -57,31 +57,33 @@ const ProductList = () => {
       <div className={styles.functions}>
         <div className={styles.functionSection}>
           <h3 className={styles.functionTitle}>Agregar</h3>
-          <p className={styles.functionDescription}>Agrega un nuevo producto a tu inventario</p>
+          <p className={styles.functionDescription}>Agrega un nuevo producto a tu inventario.</p>
           <Button text="Agregar"  icon={<FaPlus />} />
         </div>
         <div className={styles.functionSection}>
           <h3 className={styles.functionTitle}>Stock</h3>
-          <p className={styles.functionDescription}>Administra el stock de tus productos</p>
+          <p className={styles.functionDescription}>Administra el stock de todos  tus productos.</p>
           <Button text="Administrar" icon={<FaClipboardList />} />
         </div>
       </div>
-      <h2 className={styles.title}>Lista de Productos</h2>
-      <div className={styles.filters}>
-        <div className={styles.searchBarContainer}>
-          <SearchBar onSearch={handleSearch} />
-        </div>
-        <FilterBar onFilterChange={handleFilterChange} />
-      </div>
+      <div className={styles.content}>
+          <h2 className={styles.title}>Lista de Productos</h2>
+          <div className={styles.filters}>
+            <div className={styles.searchBarContainer}>
+              <SearchBar onSearch={handleSearch} />
+            </div>
+            <FilterBar onFilterChange={handleFilterChange} />
+          </div>
 
-      <DynamicTable
-        columns={columns}
-        data={filteredProducts}
-        onActionClick={(actionKey, rowData) =>
-          alert(`Acción ${actionKey} en producto: ${rowData.name}`)
-        }
-      />
-    </div>
+          <DynamicTable
+            columns={columns}
+            data={filteredProducts}
+            onActionClick={(actionKey, rowData) =>
+              alert(`Acción ${actionKey} en producto: ${rowData.name}`)
+            }
+          />
+        </div>
+      </div>
   );
 };
 
