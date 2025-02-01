@@ -1,0 +1,264 @@
+.container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+
+/* Sección Izquierda con Video de Fondo */
+.leftSection {
+  flex: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  animation: appear 2.5s ease-out;
+}
+
+.videoBackground {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(50%); /* Oscurece el video para mejorar visibilidad del texto */
+}
+
+.overlay {
+  position: absolute;
+  text-align: center;
+  color: white;
+  z-index: 1;
+}
+
+.welcomeText {
+  font-size: 40px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.description {
+  font-size: 16px;
+  margin-bottom: 40px;
+}
+
+.buttonsContainer{
+  display: flex;
+  gap: 3rem;
+  justify-content: center;
+  width: 100%;
+}
+/* From Uiverse.io by vinodjangid07 */ 
+.button {
+  width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(37, 78, 167);
+  border: none;
+  padding: 12px 16px;
+  color: white;
+  font-weight: 600;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.103);
+  position: relative;
+  overflow: hidden;
+  transition-duration: .3s;
+}
+.svgIcon {
+  width: 20px;
+}
+
+.svgIcon path {
+  fill: white;
+}
+
+.button::before {
+  width: 100%;
+  height: 130px;
+  position: absolute;
+  content: "";
+  background-color: white;
+  border-radius: 50%;
+  left: -100%;
+  top: 0;
+  transition-duration: .3s;
+  mix-blend-mode: difference;
+}
+
+.button:hover::before {
+  transition-duration: .3s;
+  transform: translate(100%,-50%);
+  border-radius: 0;
+}
+
+.button:active {
+  transform: translate(5px,5px);
+  transition-duration: .3s;
+}
+
+.buttonContact {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  border: solid white 1px;
+}
+
+.buttonContact:hover {
+  transform: scale(1.05); /* Ligero aumento de tamaño */
+}
+
+.svgIconContact {
+  width: 20px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.buttonContact:hover .svgIconContact {
+  transform: translateX(4px); /* Pequeño desplazamiento hacia la derecha */
+}
+
+
+/* Sección Derecha - Formulario */
+.rightSection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  animation: appear 2.5s ease-out;
+  background-color: rgba(245, 241, 241, 0.651);
+}
+.loginBox {
+  max-width: 400px;
+  width: 100%;
+  background: linear-gradient(to right, #21164b, #1e3a8a);
+  border-radius: 1rem;
+  padding: 2rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+}
+
+.loginTitle {
+  font-size: 24px;
+  color: white;
+  text-align: center;
+  border-bottom: 24px;
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.loginSubtitle {
+  color: #d1d5db;
+  text-align: center;
+  margin-bottom: 16px;
+  animation: appear 3s ease-out;
+}
+
+.error {
+  color: #f87171;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.inputsContainer {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.formInput {
+  width: 100%;
+  height: 2.5rem;
+  border-bottom: 2px solid #ccc;
+  background-color: transparent;
+  color: white;
+  font-size: 1rem;
+  padding: 0.5rem 0;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.formInput:focus {
+  border-color: #8b5cf6;
+}
+
+.formLabel {
+  position: absolute;
+  left: 10px;
+  top: 0;
+  font-size: 0.875rem;
+  color: #d1d5db;
+  transition: 0.3s ease;
+  pointer-events: none;
+}
+
+.formInput:focus + .formLabel,
+.formInput:not(:placeholder-shown) + .formLabel {
+  top: -1.5rem;
+  font-size: 0.75rem;
+  color: #8b5cf6;
+}
+
+.submitButton {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #8b5cf6;
+  color: white;
+  border: none;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.submitButton:hover {
+  background-color: #6d28d9;
+}
+
+.signupText {
+  color: #d1d5db;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.signupText a {
+  color: #8b5cf6;
+  text-decoration: none;
+}
+
+.signupText a:hover {
+  text-decoration: underline;
+}
+.credentials{
+  position: absolute;
+  background-color: #cccccc5b;
+  padding: 16px 24px;
+  border-radius: 8px;
+  bottom: 0;
+  margin-top: 24px;
+}

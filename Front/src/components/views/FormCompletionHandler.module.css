@@ -1,27 +1,11 @@
 .container {
-  height: 100%;
+  height: auto;
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 16px 32px;
-  gap: 24px;
-  overflow-y: auto;
-  background-color: white;
-}
-.successMessage {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #28a745; 
-  padding: 20px;
   border-radius: 8px;
-  color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 80%;
-  max-width: 400px;
-  margin: 0 auto;
-  text-align: center;
+  background-color: white;
+  overflow: hidden;
 }
 
 
@@ -50,14 +34,16 @@
   outline: 2px solid #ccc; /* Añadimos un outline sin afectar el tamaño */
 }
 
-.buttonClose {
-  transition: color 0.1s ease;
-}
 
-.buttonClose:hover {
-  color: black;
+.backButton{
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  border: solid #254567 2px;
+  transition: all 0.3s ease-in-out;
 }
-
 
 .buttonClose {
   padding: 12px 0px;

@@ -5,8 +5,9 @@ import styles from "./SalesOrder.module.css";
 import Button from "../../buttons/PrimaryButton";
 import { FaPlus } from "react-icons/fa6";
 import { FaClipboardList } from "react-icons/fa";
+import SalesOrderForm from "../../forms/SaleOrderForm";
+import FormCompletionHandler from "../FormCompletionHandler";
 
-// Definición de la interfaz para columnas
 interface Column {
   key: string;
   label: string;
@@ -14,7 +15,6 @@ interface Column {
   sortable?: boolean;
 }
 
-// Configuración de columnas de la tabla
 const columns: Column[] = [
   { key: "id", label: "ID", type: "number", sortable: true },
   { key: "customer", label: "Cliente", type: "text", sortable: true },
@@ -24,7 +24,6 @@ const columns: Column[] = [
   { key: "action", label: "Detalle", type: "action", sortable: false },
 ];
 
-// Datos iniciales de órdenes de venta
 const allOrders = [
   { id: 1, customer: "Cliente A", date: "2024-01-01", status: "Pendiente", total: 10000 },
   { id: 2, customer: "Cliente B", date: "2024-01-02", status: "Enviado", total: 7500 },
@@ -32,13 +31,30 @@ const allOrders = [
 
 const SalesOrderView: React.FC = () => {
   const [filteredOrders, setFilteredOrders] = useState(allOrders);
+  const [showCreateOrder, setShowCreateOrder] = useState(false);
+  const [formStatus, setFormStatus] = useState<"success" | "error" | null>(null);
 
-  // Función de búsqueda
   const handleSearch = (term: string) => {
     const updated = allOrders.filter((order) =>
       order.customer.toLowerCase().includes(term.toLowerCase())
     );
     setFilteredOrders(updated);
+  };
+
+  const handleCreateOrder = async (orderData: any): Promise<boolean> => {
+    try {
+      console.log("Nueva orden de venta creada:", orderData);
+      setFormStatus("success");
+      return true;
+    } catch (error) {
+      setFormStatus("error");
+      return false;
+    }
+  };
+
+  const handleCancel = () => {
+    setShowCreateOrder(false);
+    setFormStatus(null);
   };
 
   return (
@@ -47,20 +63,39 @@ const SalesOrderView: React.FC = () => {
         <div className={styles.functionSection}>
           <h3 className={styles.functionTitle}>Crear</h3>
           <p className={styles.functionDescription}>Crea una nueva orden de venta.</p>
-          <Button text="Agregar"  icon={<FaPlus />} />
+          <Button text="Agregar" icon={<FaPlus />} onClick={() => setShowCreateOrder(true)} />
         </div>
         <div className={styles.functionSection}>
-          <h3 className={styles.functionTitle}>.</h3>
-          <p className={styles.functionDescription}>.</p>
+          <h3 className={styles.functionTitle}>Administrar</h3>
+          <p className={styles.functionDescription}>Gestiona tus órdenes de venta existentes.</p>
           <Button text="Administrar" icon={<FaClipboardList />} />
         </div>
       </div>
-      <h2 className={styles.title}>Ordenes de Venta</h2>
-    
-        <SearchBar onSearch={handleSearch} />
 
-      <div>
-        {filteredOrders.length > 0 ? (
+      <div className={styles.content}>
+        <h2 className={styles.title}>Órdenes de Venta</h2>
+        <div className={styles.filters}>
+          <SearchBar onSearch={handleSearch} />
+        </div>
+
+        {/* MODAL PARA CREAR ORDEN */}
+        {showCreateOrder && (
+          <div className={styles.modalOverlay}>
+            {formStatus === null ? (
+              <SalesOrderForm onCreateSale={handleCreateOrder} onCancel={handleCancel} />
+            ) : (
+              <FormCompletionHandler
+                message="Orden creada correctamente."
+                status={formStatus}
+                onRetry={() => setShowCreateOrder(true)}
+                onCancel={handleCancel}
+              />
+            )}
+          </div>
+        )}
+
+        {/* TABLA DE ÓRDENES SOLO SI NO HAY MODAL */}
+        {!showCreateOrder && (
           <DynamicTable
             columns={columns}
             data={filteredOrders}
@@ -68,7 +103,9 @@ const SalesOrderView: React.FC = () => {
               alert(`Acción ${actionKey} en orden de venta: ${rowData.customer}`)
             }
           />
-        ) : (
+        )}
+
+        {filteredOrders.length === 0 && (
           <div className={styles.noData}>No hay datos disponibles.</div>
         )}
       </div>

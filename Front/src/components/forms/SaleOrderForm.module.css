@@ -1,0 +1,79 @@
+/* General form container */
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 32px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .header {
+    font-size: 24px;
+    font-weight: bold;
+    color: #000;
+    border-bottom: #ddd solid 1px;
+  }
+  
+  
+  
+.inputsContainer{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+.input, .select, .textArea {
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.input:focus, .select:focus, .textArea:focus {
+  border-color: #007BFF;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+  
+  .inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .label {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+  }
+
+  .textArea {
+    resize: none;
+    height: 100px;
+  }
+  
+  /* Buttons */
+  .buttons {
+    display: flex;
+    gap: 16px;
+  }
+  
+  .secondaryButton {
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    cursor: pointer;
+    color: #333;
+    text-align: center;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .secondaryButton:hover {
+    background-color: #e0e0e0;
+  }
+  

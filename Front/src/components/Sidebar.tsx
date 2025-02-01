@@ -1,6 +1,7 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styles from "./Sidebar.module.css";
+import { AuthContext } from "../app/context/AuthContext";
 import InfoPage from "./views/Info";
 import ProductList from "./views/Products/Products";
 import ProviderList from "./views/Providers/ProviderList";
@@ -9,19 +10,20 @@ import SalesOrders from "./views/SalesOrders/SalesOrder";
 import Clients from "./views/Clients/ClientsView";
 import Menu from "../components/menu/Menu";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 const Sidebar = () => {
+  const auth = useContext(AuthContext);
+  const router = useRouter();
   const [activeView, setActiveView] = useState<string>("info");
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
-  const userType: "admin" | "operador" | null = "admin";
 
-  // Asegurarse de que el cliente está renderizado
-  const [isClient, setIsClient] = useState(false);
+  const user = localStorage.getItem("user");
   useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  if (!isClient) return null; // Evitar renderizar en el lado del servidor
+    if (!user) {
+      router.push("/login"); // Redirige al login si no hay usuario
+    }
+  }, [auth?.user, router]);
 
   const renderView = () => {
     switch (activeView) {
@@ -33,27 +35,23 @@ const Sidebar = () => {
         return <PurchaseOrders />;
       case "salesOrders":
         return <SalesOrders />;
-        case "customerList":
-          return <Clients />;
+      case "customerList":
+        return <Clients />;
       case "info":
       default:
         return <InfoPage />;
     }
   };
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
-
   return (
     <div className={styles.container}>
       <div className={`${styles.sidebar} ${isSidebarOpen ? styles.open : styles.closed}`}>
-        <Menu userType={userType} onMenuSelect={(view) => setActiveView(view)} activeView={activeView} />
+        <Menu userType={auth?.user?.userType || "operador"} onMenuSelect={(view) => setActiveView(view)} activeView={activeView} />
       </div>
       <div className={styles.content}>{renderView()}</div>
       <div
         className={`${styles.toggleButton} ${isSidebarOpen ? styles.toggleOpen : styles.toggleClosed}`}
-        onClick={toggleSidebar}
+        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
       >
         {isSidebarOpen ? <FaArrowLeft className={styles.icon} /> : <FaArrowRight className={styles.icon} />}
       </div>

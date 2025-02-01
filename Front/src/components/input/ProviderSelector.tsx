@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styles from "./ProviderSelector.module.css";
 
-const ProviderSelector: React.FC = () => {
+interface ProviderSelectorProps {
+  onChange: (provider: string) => void; // Prop para manejar cambios
+}
+
+const ProviderSelector: React.FC<ProviderSelectorProps> = ({ onChange }) => {
   const [value, setValue] = useState<string>("");
   const [providers, setProviders] = useState<string[]>([]);
   const [filteredProviders, setFilteredProviders] = useState<string[]>([]);
@@ -23,19 +27,14 @@ const ProviderSelector: React.FC = () => {
       provider.toLowerCase().includes(inputValue.toLowerCase())
     );
     setFilteredProviders(filtered);
-    setIsSuggestionsVisible(true); // Muestra las sugerencias
+    setIsSuggestionsVisible(filtered.length > 0); // Muestra sugerencias solo si hay coincidencias
+    onChange(inputValue); // Notifica al padre del cambio
   };
 
   const handleSelect = (provider: string) => {
     setValue(provider); // Establece el valor seleccionado en el input
     setIsSuggestionsVisible(false); // Oculta las sugerencias
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && filteredProviders.length > 0) {
-      setValue(filteredProviders[0]); // Establece el primer ítem como seleccionado
-      setIsSuggestionsVisible(false); // Oculta las sugerencias
-    }
+    onChange(provider); // Notifica al padre del cambio
   };
 
   return (
@@ -47,13 +46,13 @@ const ProviderSelector: React.FC = () => {
           placeholder="Escribe un proveedor"
           value={value}
           onChange={handleChange}
-          onKeyDown={handleKeyDown}
+          onFocus={() => setIsSuggestionsVisible(filteredProviders.length > 0)} // Muestra sugerencias al enfocarse
         />
-        {isSuggestionsVisible && filteredProviders.length > 0 && (
+        {isSuggestionsVisible && (
           <ul className={styles.suggestions}>
-            {filteredProviders.map((provider) => (
+            {filteredProviders.map((provider, index) => (
               <li
-                key={provider}
+                key={`${provider}-${index}`}
                 onClick={() => handleSelect(provider)} // Seleccionar opción al hacer clic
                 className={styles.suggestion}
               >

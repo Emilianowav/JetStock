@@ -1,26 +1,43 @@
 .container {
   position: absolute;
   width: 450px;
-  right: 2%;
-  top: 27%;
+  right: 0;
+  top: 100%;
   flex-wrap: wrap;
   display: flex;
-  justify-content: start;
+  justify-content: space-between;
   align-items: center;
-  gap: 16px;
   padding: 16px;
+  padding-top: 10px;
   border: 1px solid rgba(255, 255, 255, 0.2); /* Borde semitransparente */
   border-radius: 12px; /* Bordes redondeados más suaves */
   background-color: #007bff0a; /* Fondo semitransparente */
   backdrop-filter: blur(15px); 
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Sombra sutil */
 }
+/* Cerrado del modal */
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 12px;
+}
+
+.closeButton {
+  cursor: pointer;
+  color: #555;
+  height: 20px;
+}
+
+/*  */
 
 .selectors{
+  width: 100%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 8px;
-
+  margin-bottom: 16px;
 }
 .select {
   appearance: none; 
@@ -74,9 +91,12 @@
 
 
 .range {
+  width: 100%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 8px;
+  margin-bottom: 16px;
 }
 
 .range input {

@@ -1,0 +1,59 @@
+/* src/forms/ProviderForm.module.css */
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px 32px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  }
+  
+  .tittle {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .inputGroup {
+    margin-bottom: 15px;
+  }
+  
+  .inputGroup label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .inputGroup input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .actions {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .submitBtn, .cancelBtn {
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .submitBtn {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .cancelBtn {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .submitBtn:hover, .cancelBtn:hover {
+    opacity: 0.8;
+  }
+  

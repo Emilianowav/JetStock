@@ -33,8 +33,8 @@ const Menu: React.FC<ChangeMenuProps> = ({ userType, onMenuSelect, activeView })
     ],
   };
 
-  const options = menuOptions[userType || "admin"];
-  const username = "Emiliano";
+  const options = menuOptions[userType || "operador"];
+  const username = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user") || "").username : "";
 
   return (
     <div className={styles.menu}>
@@ -58,7 +58,7 @@ const Menu: React.FC<ChangeMenuProps> = ({ userType, onMenuSelect, activeView })
           ))}
         </div>
       </div>
-      <LogoutButton onLogout={() => onMenuSelect("logout")} />
+      <LogoutButton />
     </div>
   );
 };

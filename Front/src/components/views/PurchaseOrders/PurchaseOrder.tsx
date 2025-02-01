@@ -5,6 +5,8 @@ import styles from "./PurchaseOrder.module.css";
 import Button from "../../buttons/PrimaryButton";
 import { FaPlus } from "react-icons/fa6";
 import { FaClipboardList } from "react-icons/fa";
+import PurchaseOrderForm from "../../forms/PurchaseOrderForm";
+import FormCompletionHandler from "../FormCompletionHandler";
 
 // Definición de la interfaz para columnas
 interface Column {
@@ -28,26 +30,13 @@ const columns: Column[] = [
 const allOrders = [
   { id: 1, supplier: "Proveedor A", date: "2024-01-01", status: "Pendiente", total: 12000 },
   { id: 2, supplier: "Proveedor B", date: "2024-01-02", status: "Enviado", total: 9500 },
-  { id: 1, supplier: "Proveedor A", date: "2024-01-01", status: "Pendiente", total: 12000 },
-  { id: 2, supplier: "Proveedor B", date: "2024-01-02", status: "Enviado", total: 9500 },
-  { id: 1, supplier: "Proveedor A", date: "2024-01-01", status: "Pendiente", total: 12000 },
-  { id: 2, supplier: "Proveedor B", date: "2024-01-02", status: "Enviado", total: 9500 },
-  { id: 1, supplier: "Proveedor A", date: "2024-01-01", status: "Pendiente", total: 12000 },
-  { id: 2, supplier: "Proveedor B", date: "2024-01-02", status: "Enviado", total: 9500 },
-  { id: 1, supplier: "Proveedor A", date: "2024-01-01", status: "Pendiente", total: 12000 },
-  { id: 2, supplier: "Proveedor B", date: "2024-01-02", status: "Enviado", total: 9500 },
-  { id: 1, supplier: "Proveedor A", date: "2024-01-01", status: "Pendiente", total: 12000 },
-  { id: 2, supplier: "Proveedor B", date: "2024-01-02", status: "Enviado", total: 9500 },
-  { id: 1, supplier: "Proveedor A", date: "2024-01-01", status: "Pendiente", total: 12000 },
-  { id: 2, supplier: "Proveedor B", date: "2024-01-02", status: "Enviado", total: 9500 },
-  { id: 1, supplier: "Proveedor A", date: "2024-01-01", status: "Pendiente", total: 12000 },
-  { id: 2, supplier: "Proveedor B", date: "2024-01-02", status: "Enviado", total: 9500 },
-  { id: 1, supplier: "Proveedor A", date: "2024-01-01", status: "Pendiente", total: 12000 },
-  { id: 2, supplier: "Proveedor B", date: "2024-01-02", status: "Enviado", total: 9500 },
+  // Agregar más datos si es necesario
 ];
 
 const PurchaseOrderView: React.FC = () => {
   const [filteredOrders, setFilteredOrders] = useState(allOrders);
+  const [showCreateOrder, setShowCreateOrder] = useState(false);
+  const [formStatus, setFormStatus] = useState<"success" | "error" | null>(null);
 
   // Función de búsqueda
   const handleSearch = (term: string) => {
@@ -57,25 +46,61 @@ const PurchaseOrderView: React.FC = () => {
     setFilteredOrders(updated);
   };
 
+  // Guardar nueva orden de compra
+  const handleCreateOrder = async (orderData: any): Promise<boolean> => {
+    try {
+      console.log("Nueva orden de compra creada:", orderData);
+      setFormStatus("success");
+      return true;
+    } catch (error) {
+      setFormStatus("error");
+      return false;
+    }
+  };
+
+  // Cancelar acciones
+  const handleCancel = () => {
+    setShowCreateOrder(false);
+    setFormStatus(null);
+  };
+
   return (
     <div className={styles.container}>
-        
       <div className={styles.functions}>
         <div className={styles.functionSection}>
           <h3 className={styles.functionTitle}>Crear</h3>
           <p className={styles.functionDescription}>Crea una nueva orden de compra.</p>
-          <Button text="Agregar"  icon={<FaPlus />} />
+          <Button text="Agregar" icon={<FaPlus />} onClick={() => setShowCreateOrder(true)} />
         </div>
         <div className={styles.functionSection}>
-          <h3 className={styles.functionTitle}>.</h3>
-          <p className={styles.functionDescription}>.</p>
+          <h3 className={styles.functionTitle}>Administrar</h3>
+          <p className={styles.functionDescription}>Gestiona tus órdenes de compra existentes.</p>
           <Button text="Administrar" icon={<FaClipboardList />} />
         </div>
       </div>
-      <h2 className={styles.title}>Ordenes de Compra</h2>
 
-      <SearchBar onSearch={handleSearch} />
-        {filteredOrders.length > 0 ? (
+      <div className={styles.content}>
+        <h2 className={styles.title}>Órdenes de Compra</h2>
+        <div className={styles.filters}>
+          <SearchBar onSearch={handleSearch} />
+        </div>
+
+        {showCreateOrder && (
+          <div className={styles.modalOverlay}>
+            {formStatus === null ? (
+              <PurchaseOrderForm onCreateOrder={handleCreateOrder} onCancel={handleCancel} />
+            ) : (
+              <FormCompletionHandler
+                message="Orden creada correctamente."
+                status={formStatus}
+                onRetry={() => setShowCreateOrder(true)}
+                onCancel={handleCancel}
+              />
+            )}
+          </div>
+        )}
+
+        {!showCreateOrder && (
           <DynamicTable
             columns={columns}
             data={filteredOrders}
@@ -83,10 +108,12 @@ const PurchaseOrderView: React.FC = () => {
               alert(`Acción ${actionKey} en orden de compra: ${rowData.supplier}`)
             }
           />
-        ) : (
-          <div className={styles.noData}>No hay datos disponibles.</div>
         )}
 
+        {filteredOrders.length === 0 && (
+          <div className={styles.noData}>No hay datos disponibles.</div>
+        )}
+      </div>
     </div>
   );
 };

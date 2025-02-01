@@ -1,0 +1,62 @@
+.container {
+    text-align: center;
+    padding: 20px;
+    background-color: white;
+  }
+  
+  .title {
+    font-size: 24px;
+    color: #f44336;
+    margin-bottom: 10px;
+  }
+  
+  .predefinedMessage {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 20px;
+  }
+  
+  .animationContainer {
+    width: 300px;
+    height: 300px;
+    margin: 0 auto 20px;
+  }
+  
+  .buttonGroup {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .retryButton {
+    width: 100px;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: #d32f2f;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+    border: none;
+  }
+  
+  .retryButton:hover {
+    background-color: #b71c1c;
+  }
+  
+  .cancelButton {
+    width: 100px;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: #777;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+    border: none;
+  }
+  
+  .cancelButton:hover {
+    background-color: #555;
+  }
+  

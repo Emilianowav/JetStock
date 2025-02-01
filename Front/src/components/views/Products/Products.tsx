@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DynamicTable from "../../tables/DynamicTable";
 import SearchBar from "../../filters/SearchBar";
 import FilterBar from "../../filters/FilterBar";
@@ -6,50 +6,120 @@ import styles from "./Products.module.css";
 import Button from "../../buttons/PrimaryButton";
 import { FaPlus } from "react-icons/fa6";
 import { FaClipboardList } from "react-icons/fa";
+import AddProductForm from "../../forms/AddProductForm";
+import UpdateStockForm from "../../forms/UpdateStockForm"; // Importamos el nuevo formulario
+import FormCompletionHandler from "../FormCompletionHandler";
+
+interface Column {
+  key: string;
+  label: string;
+  type?: "text" | "number" | "date" | "action";
+  sortable?: boolean;
+}
+
+type Filters = {
+  category?: string;
+  status?: string;
+  priceRange?: [number, number];
+};
 
 const ProductList = () => {
-  const allProducts = [
-    { id: 1, name: "Laptop", category: "Electrónica", status: "Disponible", stock: 1, price: 1000 },
-    { id: 2, name: "Mouse", category: "Electrónica", status: "Disponible", stock: 6, price: 25 },
-    { id: 3, name: "Keyboard", category: "Electrónica", status: "Agotado", stock: 0, price: 50 },
-    ...Array(50).fill({
-      id: 0,
-      name: "Producto extra",
-      category: "Otros",
-      status: "Disponible",
-      price: 1,
-    }),
-  ];
+  const [allProducts, setAllProducts] = useState<any[]>([]); // Cambiado de tipo a any[] para manejar los datos dinámicos
+  const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
+  const [showAddProduct, setShowAddProduct] = useState(false);
+  const [showStockForm, setShowStockForm] = useState(false); // Nuevo estado para mostrar el formulario de stock
+  const [formStatus, setFormStatus] = useState<"success" | "error" | null>(null);
+  const [loading, setLoading] = useState<boolean>(false); // Estado de carga
+  const [error, setError] = useState<string>(""); // Estado de error
+  const [currentPage, setCurrentPage] = useState(0); // Página actual
+  const [totalPages, setTotalPages] = useState(0); // Total de páginas
 
-  const [filteredProducts, setFilteredProducts] = useState(allProducts);
+  const itemsPerPage = 10; // Definir el número de productos por página
 
-  const columns: { key: string; label: string; type: "number" | "text" | "date" | "action"; sortable: boolean }[] = [
-    { key: "id", label: "ID", type: "number", sortable: true },
-    { key: "name", label: "Nombre", type: "text", sortable: true },
+  const columns: Column[] = [
+    { key: "id", label: "Código", type: "number", sortable: true },
+    { key: "title", label: "Nombre", type: "text", sortable: true },
     { key: "category", label: "Categoría", type: "text", sortable: false },
-    { key: "status", label: "Estado", type: "text", sortable: false },
+    { key: "availabilityStatus", label: "Estado", type: "text", sortable: false },
     { key: "stock", label: "Stock", type: "number", sortable: true },
     { key: "price", label: "Precio", type: "number", sortable: true },
     { key: "action", label: "Editar", type: "action", sortable: false },
   ];
 
+  // Obtener los productos desde la API al montar el componente
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setLoading(true);
+      setError(""); // Limpiar el error antes de la solicitud
+
+      try {
+        const response = await fetch(`https://dummyjson.com/products?skip=${currentPage * itemsPerPage}&limit=${itemsPerPage}`);
+        if (!response.ok) {
+          throw new Error("No se pudieron cargar los productos.");
+        }
+        const data = await response.json();
+        setAllProducts(data.products);  // Usamos la propiedad 'products' de la respuesta
+        setFilteredProducts(data.products); // Inicializamos los productos filtrados con los mismos productos
+        setTotalPages(Math.ceil(data.total / itemsPerPage)); // Calculamos el total de páginas
+      } catch (err: any) {
+        setError(err.message || "Error al cargar los productos.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, [currentPage]); // Refrescamos los productos cuando cambiamos de página
+
   const handleSearch = (term: string) => {
     const updated = allProducts.filter((product) =>
-      product.name.toLowerCase().includes(term.toLowerCase())
+      product.title.toLowerCase().includes(term.toLowerCase()) // Cambié 'name' a 'title'
     );
     setFilteredProducts(updated);
   };
 
-  const handleFilterChange = (filters: { category?: string; status?: string; priceRange?: [number, number] }) => {
+  const handleFilterChange = (filters: Filters) => {
     const updated = allProducts.filter((product) => {
       return (
         (!filters.category || product.category === filters.category) &&
-        (!filters.status || product.status === filters.status) &&
+        (!filters.status || product.availabilityStatus === filters.status) &&
         (!filters.priceRange ||
           (product.price >= filters.priceRange[0] && product.price <= filters.priceRange[1]))
       );
     });
     setFilteredProducts(updated);
+  };
+
+  const handleSaveProduct = async (productData: any): Promise<boolean> => {
+    try {
+      console.log("Producto guardado:", productData);
+      setFormStatus("success");
+      return true;
+    } catch (error) {
+      setFormStatus("error");
+      return false;
+    }
+  };
+
+  const handleUpdateStock = async (productId: number, stockData: any): Promise<boolean> => {
+    try {
+      console.log("Stock actualizado:", { productId, ...stockData });
+      setFormStatus("success");
+      return true;
+    } catch (error) {
+      setFormStatus("error");
+      return false;
+    }
+  };
+
+  const handleCancel = () => {
+    setShowAddProduct(false);
+    setShowStockForm(false); // Cerramos el formulario de stock
+    setFormStatus(null);
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page); // Cambiamos la página actual
   };
 
   return (
@@ -58,32 +128,87 @@ const ProductList = () => {
         <div className={styles.functionSection}>
           <h3 className={styles.functionTitle}>Agregar</h3>
           <p className={styles.functionDescription}>Agrega un nuevo producto a tu inventario.</p>
-          <Button text="Agregar"  icon={<FaPlus />} />
+          <Button text="Agregar" icon={<FaPlus />} onClick={() => setShowAddProduct(true)} />
         </div>
         <div className={styles.functionSection}>
           <h3 className={styles.functionTitle}>Stock</h3>
-          <p className={styles.functionDescription}>Administra el stock de todos  tus productos.</p>
-          <Button text="Administrar" icon={<FaClipboardList />} />
+          <p className={styles.functionDescription}>Administra el stock de todos tus productos.</p>
+          <Button text="Administrar" icon={<FaClipboardList />} onClick={() => setShowStockForm(true)} />
         </div>
       </div>
-      <div className={styles.content}>
-          <h2 className={styles.title}>Lista de Productos</h2>
-          <div className={styles.filters}>
-            <div className={styles.searchBarContainer}>
-              <SearchBar onSearch={handleSearch} />
-            </div>
-            <FilterBar onFilterChange={handleFilterChange} />
-          </div>
 
-          <DynamicTable
-            columns={columns}
-            data={filteredProducts}
-            onActionClick={(actionKey, rowData) =>
-              alert(`Acción ${actionKey} en producto: ${rowData.name}`)
-            }
-          />
+      <div className={styles.content}>
+        <h2 className={styles.title}>Lista de Productos</h2>
+
+        {loading && <p>Cargando productos...</p>}
+        {error && <p className={styles.error}>{error}</p>}
+
+        <div className={styles.filters}>
+          <div className={styles.searchBarContainer}>
+            <SearchBar onSearch={handleSearch} />
+          </div>
+          <FilterBar onFilterChange={handleFilterChange} />
         </div>
+
+        {showAddProduct && (
+          <div className={styles.modalOverlay}>
+            {formStatus === null ? (
+              <AddProductForm onSave={handleSaveProduct} onCancel={handleCancel} />
+            ) : (
+              <FormCompletionHandler
+                message="Producto guardado correctamente."  
+                status={formStatus}
+                onRetry={() => setShowAddProduct(true)}
+                onCancel={handleCancel}
+              />
+            )}
+          </div>
+        )}
+
+        {showStockForm && (
+          <div className={styles.modalOverlay}>
+            {formStatus === null ? (
+              <UpdateStockForm onUpdateStock={handleUpdateStock} onCancel={handleCancel} />
+            ) : (
+              <FormCompletionHandler
+                message="Stock actualizado correctamente."
+                status={formStatus}
+                onRetry={() => setShowStockForm(true)}
+                onCancel={handleCancel}
+              />
+            )}
+          </div>
+        )}
+
+        {!showAddProduct && !showStockForm && (
+          <>
+            <DynamicTable
+              columns={columns}
+              data={filteredProducts}
+              onActionClick={(actionKey, rowData) =>
+                alert(`Acción ${actionKey} en producto: ${rowData.title}`) // Cambié 'name' a 'title'
+              }
+            />
+
+            <div className={styles.pagination}>
+              <button 
+                onClick={() => handlePageChange(currentPage - 1)} 
+                disabled={currentPage === 0}
+              >
+                Anterior
+              </button>
+              <span>Página {currentPage + 1} de {totalPages}</span>
+              <button 
+                onClick={() => handlePageChange(currentPage + 1)} 
+                disabled={currentPage === totalPages - 1}
+              >
+                Siguiente
+              </button>
+            </div>
+          </>
+        )}
       </div>
+    </div>
   );
 };
 

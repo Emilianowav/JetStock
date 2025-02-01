@@ -1,90 +1,87 @@
 .container {
+  position: relative;
   height: 100%;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
   padding: 64px 48px;
   gap: 24px;
-  }
+}
 
-  .functions{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-    padding: 32px 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 4px;
-    --s: 194px; /* control the size */
-    --c1: #dac9e6; /* New primary color */
-    --c2: #8ab6d6; /* New secondary color */
+.functions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 32px 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
 
-  --_l: #0000 calc(25% / 3), var(--c1) 0 25%, #0000 0;
-  --_g: conic-gradient(from 120deg at 50% 87.5%, var(--c1) 120deg, #0000 0);
+  --s: 194px; 
+  --c1: #f6edb3;
+  --c2: #acc4a3;
 
-  background: var(--_g), var(--_g) 0 calc(var(--s) / 2),
-    conic-gradient(from 180deg at 75%, var(--c2) 60deg, #0000 0),
-    conic-gradient(from 60deg at 75% 75%, var(--c1) 0 60deg, #0000 0),
-    linear-gradient(150deg, var(--_l)) 0 calc(var(--s) / 2),
-    conic-gradient(
-      at 25% 25%,
-      #0000 50%,
-      var(--c2) 0 240deg,
-      var(--c1) 0 300deg,
-      var(--c2) 0
-    ),
-    linear-gradient(-150deg, var(--_l)) #497ca3 /* third color here */;
-  background-size: calc(0.866 * var(--s)) var(--s);
-  }
-  .functionSection{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items:flex-start;
-    gap: 16px;
-    border-radius: 6px;
-    padding: 16px;
-    background-color: white;
-  }
-  .functionTitle{
-    font-size: 24px;
-    color:  black;
-    font-weight: bolder;
-    line-height: 32px;
-  }
-  .functionDescription{
-    font-size: 16px;
-    color:  black;
-    
-  }
- 
+--_l: #0000 calc(25% / 3), var(--c1) 0 25%, #0000 0;
+--_g: conic-gradient(from 120deg at 50% 87.5%, var(--c1) 120deg, #0000 0);
+
+background: var(--_g), var(--_g) 0 calc(var(--s) / 2),
+  conic-gradient(from 180deg at 75%, var(--c2) 60deg, #0000 0),
+  conic-gradient(from 60deg at 75% 75%, var(--c1) 0 60deg, #0000 0),
+  linear-gradient(150deg, var(--_l)) 0 calc(var(--s) / 2),
+  conic-gradient(
+    at 25% 25%,
+    #0000 50%,
+    var(--c2) 0 240deg,
+    var(--c1) 0 300deg,
+    var(--c2) 0
+  ),
+  linear-gradient(-150deg, var(--_l)) #497ca3 /* third color here */;
+background-size: calc(0.866 * var(--s)) var(--s);
+}
+
+.functionSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px;
+  background-color: white;
+  border-radius: 8px;
+}
+
+.functionTitle {
+  font-size: 24px;
+  font-weight: bold;
+  color: black;
+}
+
+.functionDescription {
+  font-size: 16px;
+  color: black;
+}
+
 .title {
   width: 100%;
   font-size: 32px;
   color: black;
 }
-  
-  .filters {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-  }
-  
-  .tableContainer {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-    background-color: white;
-    padding: 16px;
-    margin-top: 24px;
-  }
-  
-  .noData {
-    text-align: center;
-    font-size: 16px;
-    color: #999;
-    padding: 20px;
-  }
-  
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.15); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Asegura que el formulario esté sobre el contenido */
+}

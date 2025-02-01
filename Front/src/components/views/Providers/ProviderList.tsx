@@ -1,3 +1,5 @@
+// src/views/ProviderList.tsx
+
 import React, { useState } from "react";
 import DynamicTable from "../../tables/DynamicTable";
 import SearchBar from "../../filters/SearchBar";
@@ -5,6 +7,8 @@ import styles from "./ProviderList.module.css";
 import Button from "../../buttons/PrimaryButton";
 import { FaPlus } from "react-icons/fa6";
 import { FaClipboardList } from "react-icons/fa";
+import ProviderForm from "../../forms/AddProviderForm";
+import FormCompletionHandler from "../FormCompletionHandler";
 
 interface Column {
   key: string;
@@ -20,6 +24,8 @@ const ProviderList: React.FC = () => {
   ];
 
   const [filteredProviders, setFilteredProviders] = useState(allProviders);
+  const [showCreateProvider, setShowCreateProvider] = useState(false);
+  const [formStatus, setFormStatus] = useState<"success" | "error" | null>(null);
 
   const columns: Column[] = [
     { key: "id", label: "ID", type: "number", sortable: true },
@@ -36,36 +42,70 @@ const ProviderList: React.FC = () => {
     setFilteredProviders(updated);
   };
 
+  const handleCreateProvider = (providerData: { name: string; contact: string; phone: string }) => {
+    try {
+      console.log("Nuevo proveedor creado:", providerData);
+      setFormStatus("success");
+      // Aquí se agregarían los datos a la lista
+      return true;
+    } catch (error) {
+      setFormStatus("error");
+      return false;
+    }
+  };
+
+  const handleCancel = () => {
+    setShowCreateProvider(false);
+    setFormStatus(null);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.functions}>
         <div className={styles.functionSection}>
           <h3 className={styles.functionTitle}>Agregar</h3>
           <p className={styles.functionDescription}>Agrega un nuevo proveedor a tu lista.</p>
-          <Button text="Agregar"  icon={<FaPlus />} />
+          <Button text="Agregar" icon={<FaPlus />} onClick={() => setShowCreateProvider(true)} />
         </div>
         <div className={styles.functionSection}>
           <h3 className={styles.functionTitle}>Modificar</h3>
-          <p className={styles.functionDescription}>Modifica las informacion de tus proveedores.</p>
+          <p className={styles.functionDescription}>Modifica las informaciones de tus proveedores.</p>
           <Button text="Administrar" icon={<FaClipboardList />} />
         </div>
       </div>
+
       <h2 className={styles.title}>Lista de Proveedores</h2>
       <SearchBar onSearch={handleSearch} />
+
+      {showCreateProvider && (
+        <div className={styles.modalOverlay}>
+          {formStatus === null ? (
+            <ProviderForm onSubmit={handleCreateProvider} onCancel={handleCancel} />
+          ) : (
+            <FormCompletionHandler
+              message="Proveedor agregado correctamente"
+              status={formStatus}
+              onRetry={() => {}}
+              onCancel={handleCancel}
+            />
+          )}
+        </div>
+      )}
+
       <div>
         {filteredProviders.length > 0 ? (
           <DynamicTable
             columns={columns}
             data={filteredProviders}
             onActionClick={(actionKey, rowData) =>
-              alert(`Acción ${actionKey} en orden de venta: ${rowData.name}`)
+              alert(`Acción ${actionKey} en proveedor: ${rowData.name}`)
             }
           />
         ) : (
           <div className={styles.noData}>No hay datos disponibles.</div>
         )}
       </div>
-      </div>
+    </div>
   );
 };
 
