@@ -23,7 +23,7 @@ const Sidebar = () => {
     if (!user) {
       router.push("/login"); // Redirige al login si no hay usuario
     }
-  }, [auth?.user, router]);
+  }, [user, router]);
 
   const renderView = () => {
     switch (activeView) {

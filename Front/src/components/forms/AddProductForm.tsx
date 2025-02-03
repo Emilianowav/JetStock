@@ -55,11 +55,21 @@ const AddProductForm: React.FC<ProductFormProps> = ({ onSave, onCancel }) => {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
+  // Simulación de API: Sube la imagen y devuelve una URL ficticia
+  const uploadImageToServer = async (file: File): Promise<string> => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const simulatedUrl = `https://fake-image-server.com/uploads/${file.name}`;
+        resolve(simulatedUrl);
+      }, 1500);
+    });
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
     setFormData({
       ...formData,
-      [id]: id === "supplierId" || id === "price" || id === "costPrice" || id === "discount" || id === "stock" || id === "minStock" ? Number(value) : value,
+      [id]: ["supplierId", "price", "costPrice", "discount", "stock", "minStock"].includes(id) ? Number(value) : value,
     });
   };
 
@@ -75,7 +85,7 @@ const AddProductForm: React.FC<ProductFormProps> = ({ onSave, onCancel }) => {
   };
 
   const handleImageUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setImageFile(null); // Si se usa una URL, desechamos cualquier archivo cargado
+    setImageFile(null); // Si el usuario ingresa una URL, desechamos la imagen local
     setFormData({
       ...formData,
       imageUrl: e.target.value,
@@ -87,7 +97,13 @@ const AddProductForm: React.FC<ProductFormProps> = ({ onSave, onCancel }) => {
     setStatus("loading");
 
     try {
-      const isSuccess = await onSave(formData);
+      let uploadedImageUrl = formData.imageUrl;
+
+      if (imageFile) {
+        uploadedImageUrl = await uploadImageToServer(imageFile);
+      }
+
+      const isSuccess = await onSave({ ...formData, imageUrl: uploadedImageUrl });
       setStatus(isSuccess ? "success" : "error");
     } catch {
       setStatus("error");
@@ -103,6 +119,7 @@ const AddProductForm: React.FC<ProductFormProps> = ({ onSave, onCancel }) => {
   if (status === "success" || status === "error") {
     return (
       <FormCompletionHandler
+        message={status === "success" ? "Producto guardado con éxito." : "Hubo un error al guardar el producto. Intenta nuevamente."}
         status={status}
         onRetry={handleRetry}
         onCancel={onCancel}
@@ -124,19 +141,15 @@ const AddProductForm: React.FC<ProductFormProps> = ({ onSave, onCancel }) => {
           <label htmlFor="barcode" className={styles.label}>Código de Barras*</label>
           <input id="barcode" className={styles.input} value={formData.barcode} onChange={handleChange} required />
         </div>
-        <div className={styles.inputGroup}>
-          <label className={styles.label}>Proveedor*</label>
-          <ProviderSelector onChange={(supplierId) => setFormData({ ...formData, supplierId })} />
-        </div>
-        <div className={styles.inputGroup}>
-          <CategorySelector onChange={(category, subcategory) => setFormData({ ...formData, category, subcategory })} />
-        </div>
+        <ProviderSelector onChange={(supplierId) => setFormData({ ...formData, supplierId: Number(supplierId) })} />
+
+        <CategorySelector onChange={(category, subcategory) => setFormData({ ...formData, category, subcategory })} />
       </div>
 
       <div className={styles.inputsContainer}>
         <div className={styles.inputGroup}>
           <label htmlFor="description" className={styles.label}>Descripción</label>
-          <textarea id="description" className={styles.textArea} value={formData.description || ""} onChange={handleChange} placeholder="Escribe una descripción del producto" />
+          <textarea id="description" className={styles.textArea} value={formData.description || ""} onChange={handleChange} />
         </div>
         <div className={styles.inputGroup}>
           <label htmlFor="imageUpload" className={styles.label}>Imagen del Producto</label>
@@ -150,21 +163,6 @@ const AddProductForm: React.FC<ProductFormProps> = ({ onSave, onCancel }) => {
             <img src={formData.imageUrl} alt="Vista previa del producto" className={styles.previewImage} />
           </div>
         )}
-      </div>
-
-      <div className={styles.inputsContainer}>
-        <div className={styles.inputGroup}>
-          <label htmlFor="stock" className={styles.label}>Stock Inicial*</label>
-          <input id="stock" type="number" className={styles.input} value={formData.stock} onChange={handleChange} required />
-        </div>
-        <div className={styles.inputGroup}>
-          <label htmlFor="minStock" className={styles.label}>Stock Mínimo*</label>
-          <input id="minStock" type="number" className={styles.input} value={formData.minStock} onChange={handleChange} required />
-        </div>
-        <div className={styles.inputGroup}>
-          <label htmlFor="warehouseLocation" className={styles.label}>Ubicación en Almacén</label>
-          <input id="warehouseLocation" className={styles.input} value={formData.warehouseLocation} onChange={handleChange} />
-        </div>
       </div>
 
       <PriceModule 
