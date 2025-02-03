@@ -1,67 +1,36 @@
 import React, { useEffect, useRef } from "react";
+import lottie, { AnimationItem } from "lottie-web";
 import styles from "./ErrorMessage.module.css";
 
-// Evitar carga duplicada del script
-let isScriptLoaded = false;
-
 interface ErrorMessageProps {
-  onRetry: () => void; // Para reintentar la acción fallida
-  onCancel: () => void; // Para regresar al flujo anterior
-  errorMessage: string; // Mensaje dinámico de error
+  onRetry: () => void;
+  onCancel: () => void;
+  errorMessage: string;
 }
-
 const ErrorMessage: React.FC<ErrorMessageProps> = ({
   onRetry,
   onCancel,
   errorMessage,
 }) => {
   const animationContainer = useRef<HTMLDivElement | null>(null);
-  const animationInstanceRef = useRef<any>(null); // Almacena la instancia de la animación
+  const animationInstanceRef = useRef<AnimationItem | null>(null);
 
-  const predefinedMessage =
-    "Intenta de nuevo, si el error persiste, contacta a soporte.";
+  const predefinedMessage = "Intenta de nuevo, si el error persiste, contacta a soporte.";
 
   useEffect(() => {
-    const initializeAnimation = () => {
-      if (animationContainer.current && !animationInstanceRef.current) {
-        animationInstanceRef.current = window.lottie.loadAnimation({
-          container: animationContainer.current, // Contenedor de la animación
-          renderer: "svg", // Usar SVG como renderer
-          loop: false, // No repetir la animación
-          autoplay: true, // Iniciar automáticamente
-          path: "https://lottie.host/2d7343c9-d7c5-4d71-b763-5b5cf8a8cb37/qlivb7y7hj.json", // Ruta de la animación de error
-        });
-      }
-    };
-
-    if (!isScriptLoaded) {
-      isScriptLoaded = true;
-
-      const script = document.createElement("script");
-      script.src = "https://unpkg.com/lottie-web@5.7.11/build/player/lottie.min.js";
-      script.async = true;
-
-      script.onload = () => {
-        if (window.lottie) {
-          initializeAnimation();
-        }
-      };
-
-      document.body.appendChild(script);
-
-      return () => {
-        document.body.removeChild(script);
-        isScriptLoaded = false;
-      };
-    } else if (window.lottie) {
-      initializeAnimation();
+    if (animationContainer.current && !animationInstanceRef.current) {
+      animationInstanceRef.current = lottie.loadAnimation({
+        container: animationContainer.current,
+        renderer: "svg",
+        loop: false,
+        autoplay: true,
+        path: "https://lottie.host/2d7343c9-d7c5-4d71-b763-5b5cf8a8cb37/qlivb7y7hj.json",
+      });
     }
 
     return () => {
-      if (animationInstanceRef.current) {
-        animationInstanceRef.current.destroy();
-        animationInstanceRef.current = null;
-      }
+      animationInstanceRef.current?.destroy();
+      animationInstanceRef.current = null;
     };
   }, []);
 
