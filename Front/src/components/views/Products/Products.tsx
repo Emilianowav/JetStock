@@ -78,29 +78,40 @@ const ProductList = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
-      setError(""); // Limpiar el error antes de la solicitud
-
+      setError(""); // Limpiamos errores previos
+  
       try {
-        const response = await fetch(`https://dummyjson.com/products?skip=${currentPage * itemsPerPage}&limit=${itemsPerPage}`);
+        const response = await fetch(
+          `https://dummyjson.com/products?skip=${currentPage * itemsPerPage}&limit=${itemsPerPage}`
+        );
+  
         if (!response.ok) {
-          throw new Error("No se pudieron cargar los productos.");
+          throw new Error("Error al obtener los productos");
         }
+  
         const data = await response.json();
-        setAllProducts(data.products);  // Usamos la propiedad 'products' de la respuesta
-        setFilteredProducts(data.products); // Inicializamos los productos filtrados con los mismos productos
-        setTotalPages(Math.ceil(data.total / itemsPerPage)); // Calculamos el total de páginas
+  
+        if (!data.products || !Array.isArray(data.products)) {
+          throw new Error("La API no devolvió productos válidos");
+        }
+  
+        setAllProducts(data.products);
+        setFilteredProducts(data.products);
+        
+        // Validamos que `data.total` sea un número válido
+        const total = typeof data.total === "number" ? data.total : 0;
+        setTotalPages(Math.ceil(total / itemsPerPage));
       } catch (error) {
-        console.error("Error:", error);
-        setFormStatus("error");
-        return false;
+        console.error("Error al obtener los productos:", error);
+        setError("No se pudieron cargar los productos.");
       } finally {
         setLoading(false);
       }
     };
-
+  
     fetchProducts();
-  }, [currentPage]); // Refrescamos los productos cuando cambiamos de página
-
+  }, [currentPage]); // Se ejecuta cada vez que cambia `currentPage`
+  
   const handleSearch = (term: string) => {
     const updated = allProducts.filter((product) =>
       product.title.toLowerCase().includes(term.toLowerCase()) // Cambié 'name' a 'title'
