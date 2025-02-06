@@ -17,7 +17,7 @@ const LogoutButton: React.FC = () => {
   const { logout } = authContext; // Extraer logout después de la verificación
 
   const handleLogout = () => {
-    logout(); // Limpiar el estado y localStorage
+    logout(); 
     router.push("/login"); // Redirigir a la página de login
   };
 

@@ -8,6 +8,14 @@ import { FaClipboardList } from "react-icons/fa";
 import SalesOrderForm from "../../forms/SaleOrderForm";
 import FormCompletionHandler from "../FormCompletionHandler";
 
+interface SaleData {
+  cliente: string;
+  fechaVenta: string;
+  productos: Array<{ id: number; cantidad: number; precio: number }>;
+  metodoPago: string;
+  direccionEnvio: string;
+  observaciones: string;
+}
 interface Column {
   key: string;
   label: string;
@@ -41,12 +49,13 @@ const SalesOrderView: React.FC = () => {
     setFilteredOrders(updated);
   };
 
-  const handleCreateOrder = async (orderData: any): Promise<boolean> => {
+  const handleCreateOrder = async (orderData: SaleData): Promise<boolean> => {
     try {
       console.log("Nueva orden de venta creada:", orderData);
       setFormStatus("success");
       return true;
     } catch (error) {
+      console.error("Error :", error);
       setFormStatus("error");
       return false;
     }

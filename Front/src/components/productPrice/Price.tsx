@@ -1,30 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styles from './Price.module.css';
 
 interface PriceModuleProps {
   price: number;
-  iva: number; 
+  iva: number;
   onPriceChange: (price: number) => void;
-  onIvaChange: (iva: number) => void; 
+  onIvaChange: (iva: number) => void;
 }
 
 const PriceModule: React.FC<PriceModuleProps> = ({ price, iva, onPriceChange, onIvaChange }) => {
-  const [priceWithIVA, setPriceWithIVA] = useState<number>(0);
   const [profitPercentage, setProfitPercentage] = useState<number>(0);
-  const [discountPercentage, setDiscountPercentage] = useState<number>(0); // Nuevo estado para el descuento
-  const [finalPrice, setFinalPrice] = useState<number>(0);
+  const [discountPercentage, setDiscountPercentage] = useState<number>(0);
 
-  useEffect(() => {
-    const priceWithIVA = price * (1 + iva);
-    setPriceWithIVA(priceWithIVA);
+  // 🧮 Calculamos el precio con IVA
+  const priceWithIVA = price * (1 + iva);
 
-    const discountFactor = 1 - discountPercentage / 100;
-    const profitFactor = 1 + profitPercentage / 100;
+  // 🔢 Aplicamos el descuento y la ganancia
+  const discountFactor = 1 - discountPercentage / 100;
+  const profitFactor = 1 + profitPercentage / 100;
+  const finalPrice = priceWithIVA * discountFactor * profitFactor;
 
-    const finalPriceWithAdjustments = priceWithIVA * discountFactor * profitFactor;
-    setFinalPrice(finalPriceWithAdjustments);
-  }, [price, iva, profitPercentage, discountPercentage]);
-
+  // 🏷️ Manejadores de cambio
   const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newPrice = parseFloat(e.target.value);
     if (!isNaN(newPrice)) {
@@ -94,7 +90,6 @@ const PriceModule: React.FC<PriceModuleProps> = ({ price, iva, onPriceChange, on
           />
         </div>
 
-        {/* Nuevo campo de descuento */}
         <div className={styles.inputGroup}>
           <label htmlFor="discount" className={styles.label}>Descuento (%)</label>
           <input
@@ -107,6 +102,12 @@ const PriceModule: React.FC<PriceModuleProps> = ({ price, iva, onPriceChange, on
             max="100"
           />
         </div>
+      </div>
+
+      {/* 📌 Sección de Totales */}
+      <div className={styles.totalBox}>
+        <label className={styles.label}>Precio con IVA</label>
+        <span>{priceWithIVA.toFixed(2)} ARS</span>
       </div>
 
       <div className={styles.totalBox}>

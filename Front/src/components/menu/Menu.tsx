@@ -1,6 +1,5 @@
-// components/Menu.tsx
-import React from "react";
-import { FaCog, FaUser, FaFileAlt , FaAddressBook , FaTruck, FaShoppingCart, FaReceipt } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
+import { FaCog, FaUser, FaFileAlt, FaAddressBook, FaTruck, FaShoppingCart, FaReceipt } from "react-icons/fa";
 import { FaBoxArchive } from "react-icons/fa6";
 import MenuButton from "../buttons/MenuButton";
 import styles from "./Menu.module.css";
@@ -13,13 +12,27 @@ interface ChangeMenuProps {
 }
 
 const Menu: React.FC<ChangeMenuProps> = ({ userType, onMenuSelect, activeView }) => {
+  const [username, setUsername] = useState<string>("");
+
+  useEffect(() => {
+    const userData = localStorage.getItem("user");
+    if (userData) {
+      try {
+        const parsedUser = JSON.parse(userData);
+        setUsername(parsedUser.username);
+      } catch (error) {
+        console.error("Error al parsear los datos del usuario", error);
+      }
+    }
+  }, []);
+
   const menuOptions = {
     admin: [
       { id: "productList", label: "Productos", icon: <FaBoxArchive /> },
       { id: "purchaseOrders", label: "Órdenes de Compra", icon: <FaShoppingCart /> },
       { id: "salesOrders", label: "Órdenes de Venta", icon: <FaReceipt /> },
       { id: "providerList", label: "Proveedores", icon: <FaTruck /> },
-      { id: "customerList", label: "Clientes", icon: <FaAddressBook  /> },
+      { id: "customerList", label: "Clientes", icon: <FaAddressBook /> },
       { id: "reports", label: "Reportes", icon: <FaFileAlt /> },
       { id: "settings", label: "Configuraciones", icon: <FaCog /> },
     ],
@@ -28,13 +41,12 @@ const Menu: React.FC<ChangeMenuProps> = ({ userType, onMenuSelect, activeView })
       { id: "purchaseOrders", label: "Órdenes de Compra", icon: <FaShoppingCart /> },
       { id: "salesOrders", label: "Órdenes de Venta", icon: <FaReceipt /> },
       { id: "providerList", label: "Proveedores", icon: <FaTruck /> },
-      { id: "customerList", label: "Clientes", icon: <FaAddressBook  /> },
+      { id: "customerList", label: "Clientes", icon: <FaAddressBook /> },
       { id: "profile", label: "Perfil", icon: <FaUser /> },
     ],
   };
 
   const options = menuOptions[userType || "operador"];
-  const username = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user") || "").username : "";
 
   return (
     <div className={styles.menu}>
@@ -49,9 +61,7 @@ const Menu: React.FC<ChangeMenuProps> = ({ userType, onMenuSelect, activeView })
             <MenuButton
               key={option.id}
               text={option.label}
-              onClick={() => {
-                onMenuSelect(option.id);
-              }}
+              onClick={() => onMenuSelect(option.id)}
               icon={option.icon}
               isActive={activeView === option.id}
             />

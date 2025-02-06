@@ -1,11 +1,36 @@
-.selectors{
+.selectors {
   position: relative;
 }
+
+.selectWrapper {
+  width: 200px;
+}
+
+.label {
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.input:focus {
+  border-color: #007BFF;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
 .suggestions {
   position: absolute;
-  top: 0;
-  left: 190px;
-  width: 200px;
+  top: 100%;
+  left: 0;
+  width: 100%;
   max-height: 150px;
   overflow-y: auto;
   background-color: #fff;
@@ -15,17 +40,17 @@
   z-index: 10;
   list-style: none;
   padding: 0;
-  margin: 0;
-  box-sizing: content-box; /* Asegura que el padding no afecte el ancho */
+  margin-top: 4px;
+  box-sizing: border-box;
 }
 
 .suggestions::-webkit-scrollbar {
-  width: 8px; /* Define un ancho fijo para la barra de desplazamiento */
+  width: 6px;
 }
 
 .suggestions::-webkit-scrollbar-thumb {
-  background-color: #ccc; /* Estilo de la barra */
-  border-radius: 4px;
+  background-color: #bbb;
+  border-radius: 3px;
 }
 
 .suggestions::-webkit-scrollbar-track {
@@ -35,22 +60,9 @@
 .suggestion {
   padding: 8px;
   cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .suggestion:hover {
   background-color: #f0f0f0;
-}
-
-.input {
-  width: calc(100% - 8px); /* Ajuste para compensar la barra de desplazamiento */
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 14px;
-}
-
-.input:focus {
-  border-color: #007BFF;
-  outline: none;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }

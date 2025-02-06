@@ -7,14 +7,19 @@ import ProviderSelector from "../input/ProviderSelector";
 import PriceModule from "../productPrice/Price";
 import FormCompletionHandler from "../views/FormCompletionHandler";
 import Loader from "../loader/Loader";
+import Image from "next/image";
 
 interface ProductFormProps {
   onSave: (productData: ProductData) => Promise<boolean>;
   onCancel: () => void;
 }
+interface RowData {
+  [key: string]: string | number | boolean | undefined;
+}
 
-interface ProductData {
-  name: string;
+interface ProductData extends RowData {
+  id: number;
+  title: string;
   description?: string;
   barcode: string;
   supplierId: number;
@@ -30,11 +35,13 @@ interface ProductData {
   subcategory: string;
   imageUrl: string;
   status: string;
+  availabilityStatus: string;
 }
 
 const AddProductForm: React.FC<ProductFormProps> = ({ onSave, onCancel }) => {
   const [formData, setFormData] = useState<ProductData>({
-    name: "",
+    id: 0,
+    title: "",
     description: "",
     barcode: "",
     supplierId: 0,
@@ -50,6 +57,7 @@ const AddProductForm: React.FC<ProductFormProps> = ({ onSave, onCancel }) => {
     subcategory: "",
     imageUrl: "",
     status: "Disponible",
+    availabilityStatus: "Disponible", // ✅ Ahora está incluido
   });
 
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -135,7 +143,7 @@ const AddProductForm: React.FC<ProductFormProps> = ({ onSave, onCancel }) => {
       <div className={styles.inputsContainer}>
         <div className={styles.inputGroup}>
           <label htmlFor="name" className={styles.label}>Nombre*</label>
-          <input id="name" className={styles.input} value={formData.name} onChange={handleChange} required />
+          <input id="name" className={styles.input} value={formData.title} onChange={handleChange} required />
         </div>
         <div className={styles.inputGroup}>
           <label htmlFor="barcode" className={styles.label}>Código de Barras*</label>
@@ -160,7 +168,7 @@ const AddProductForm: React.FC<ProductFormProps> = ({ onSave, onCancel }) => {
 
         {formData.imageUrl && (
           <div className={styles.imagePreview}>
-            <img src={formData.imageUrl} alt="Vista previa del producto" className={styles.previewImage} />
+            <Image src={formData.imageUrl} alt="Vista previa del producto" className={styles.previewImage} />
           </div>
         )}
       </div>

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./loginPage.module.css";
 import Link from "next/link";
@@ -9,7 +9,10 @@ const LoginPage: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string>("");
-
+  
+  const fixedUsername = "mor_2314";
+  const fixedPassword = "83r5^_";
+  
   const showError = (message: string) => {
     setError(message);
     setTimeout(() => setError(""), 5000);
@@ -18,22 +21,21 @@ const LoginPage: React.FC = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const fixedUsername = "mor_2314";
-    const fixedPassword = "83r5^_";
-
     if (!username || !password) {
       showError("Por favor ingrese usuario y contraseña.");
       return;
     }
 
-    if (username === fixedUsername && password === fixedPassword) {
-      localStorage.setItem("user", JSON.stringify({ username, userType: "admin" }));
-      router.push("/dashboard");
-    } else {
-      showError("Usuario o contraseña incorrectos.");
-    }
   };
-
+    useEffect(() => {
+      if (typeof window !== "undefined") {
+        const storedUser = localStorage.getItem("user");
+        if (storedUser) {
+          router.push("/dashboard");
+        }
+      }
+    }, []);
+  
   return (
     <div className={styles.container}>
       {/* Sección Izquierda - Video de Fondo con Texto */}
@@ -110,8 +112,8 @@ const LoginPage: React.FC = () => {
         </div>
         <div className={styles.credentials}>
           <h4>Crendenciales para prueba de sistema (admin) </h4>
-          <p>Usuario: mor_2314</p>
-          <p>Contraseña: 83r5^_</p>
+          <p>Usuario: {fixedUsername} </p>
+          <p>Contraseña: {fixedPassword}</p>
         </div>
       </div>
     </div>

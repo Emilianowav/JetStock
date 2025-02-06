@@ -78,7 +78,8 @@ const UpdateStockForm: React.FC<StockFormProps> = ({ onUpdateStock, onCancel }) 
       <div className={styles.inputsContainer}>
         <div className={styles.inputGroup}>
           <label className={styles.label}>Producto*</label>
-          <SearchBar onSearch={() => {}} />
+          <SearchBar onSearch={() => {}} onSelect={(productId) => setSelectedProductId(productId)} />
+
         </div>
 
         <div className={styles.inputGroup}>

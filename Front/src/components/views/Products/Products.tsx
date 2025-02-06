@@ -7,8 +7,36 @@ import Button from "../../buttons/PrimaryButton";
 import { FaPlus } from "react-icons/fa6";
 import { FaClipboardList } from "react-icons/fa";
 import AddProductForm from "../../forms/AddProductForm";
-import UpdateStockForm from "../../forms/UpdateStockForm"; // Importamos el nuevo formulario
+import UpdateStockForm from "../../forms/UpdateStockForm"; 
 import FormCompletionHandler from "../FormCompletionHandler";
+
+interface RowData {
+  [key: string]: string | number | boolean | undefined;
+}
+interface StockData {
+  stock: number;
+  minStock: number;
+}
+interface ProductData extends RowData {
+  id: number;
+  title: string;
+  description?: string;
+  barcode: string;
+  supplierId: number;
+  price: number;
+  costPrice: number;
+  discount: number;
+  taxRate: number;
+  finalPrice: number;
+  stock: number;
+  minStock: number;
+  warehouseLocation: string;
+  category: string;
+  subcategory: string;
+  imageUrl: string;
+  status: string;
+  availabilityStatus: string;
+}
 
 interface Column {
   key: string;
@@ -24,17 +52,17 @@ type Filters = {
 };
 
 const ProductList = () => {
-  const [allProducts, setAllProducts] = useState<any[]>([]); // Cambiado de tipo a any[] para manejar los datos dinámicos
-  const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
+  const [allProducts, setAllProducts] = useState<ProductData[]>([]); 
+  const [filteredProducts, setFilteredProducts] = useState<ProductData[]>([]);
   const [showAddProduct, setShowAddProduct] = useState(false);
-  const [showStockForm, setShowStockForm] = useState(false); // Nuevo estado para mostrar el formulario de stock
+  const [showStockForm, setShowStockForm] = useState(false); 
   const [formStatus, setFormStatus] = useState<"success" | "error" | null>(null);
-  const [loading, setLoading] = useState<boolean>(false); // Estado de carga
-  const [error, setError] = useState<string>(""); // Estado de error
-  const [currentPage, setCurrentPage] = useState(0); // Página actual
-  const [totalPages, setTotalPages] = useState(0); // Total de páginas
+  const [loading, setLoading] = useState<boolean>(false); 
+  const [error, setError] = useState<string>(""); 
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0); 
 
-  const itemsPerPage = 10; // Definir el número de productos por página
+  const itemsPerPage = 10;
 
   const columns: Column[] = [
     { key: "id", label: "Código", type: "number", sortable: true },
@@ -61,8 +89,10 @@ const ProductList = () => {
         setAllProducts(data.products);  // Usamos la propiedad 'products' de la respuesta
         setFilteredProducts(data.products); // Inicializamos los productos filtrados con los mismos productos
         setTotalPages(Math.ceil(data.total / itemsPerPage)); // Calculamos el total de páginas
-      } catch (err: any) {
-        setError(err.message || "Error al cargar los productos.");
+      } catch (error) {
+        console.error("Error:", error);
+        setFormStatus("error");
+        return false;
       } finally {
         setLoading(false);
       }
@@ -90,23 +120,25 @@ const ProductList = () => {
     setFilteredProducts(updated);
   };
 
-  const handleSaveProduct = async (productData: any): Promise<boolean> => {
+  const handleSaveProduct = async (productData: ProductData): Promise<boolean> => {
     try {
       console.log("Producto guardado:", productData);
       setFormStatus("success");
       return true;
     } catch (error) {
+      console.error("Error :", error);
       setFormStatus("error");
       return false;
     }
   };
 
-  const handleUpdateStock = async (productId: number, stockData: any): Promise<boolean> => {
+  const handleUpdateStock = async (productId: number, stockData: StockData): Promise<boolean> => {
     try {
       console.log("Stock actualizado:", { productId, ...stockData });
       setFormStatus("success");
       return true;
     } catch (error) {
+      console.error("Error:", error);
       setFormStatus("error");
       return false;
     }

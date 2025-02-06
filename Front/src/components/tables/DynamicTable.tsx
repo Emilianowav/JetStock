@@ -18,7 +18,6 @@ interface TableProps<T extends RowData> {
   data: T[];
   onActionClick?: (actionKey: string, rowData: T) => void;
 }
-
 const DynamicTable = <T extends RowData>({ columns, data, onActionClick }: TableProps<T>) => {
   const renderCellValue = (value: string | number | boolean | undefined): React.ReactNode => {
     return value ?? "-";
@@ -32,8 +31,7 @@ const DynamicTable = <T extends RowData>({ columns, data, onActionClick }: Table
             {columns.map((column) => (
               <th key={column.key} className={styles.th}>
                 {column.label}
-                {column.sortable && <button className={styles.sortButton}><FaSort />
-                </button>}
+                {column.sortable && <button className={styles.sortButton}><FaSort /></button>}
               </th>
             ))}
           </tr>

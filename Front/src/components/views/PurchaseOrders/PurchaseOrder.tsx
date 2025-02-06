@@ -8,6 +8,16 @@ import { FaClipboardList } from "react-icons/fa";
 import PurchaseOrderForm from "../../forms/PurchaseOrderForm";
 import FormCompletionHandler from "../FormCompletionHandler";
 
+interface OrderData {
+  proveedor: string;
+  fechaOrden: string;
+  fechaEntrega: string;
+  productos: Array<{ id: number; cantidad: number; precio: number }>;
+  condicionesPago: string;
+  tipoEnvio: string;
+  direccionEnvio: string;
+  observaciones: string;
+}
 // Definición de la interfaz para columnas
 interface Column {
   key: string;
@@ -47,12 +57,13 @@ const PurchaseOrderView: React.FC = () => {
   };
 
   // Guardar nueva orden de compra
-  const handleCreateOrder = async (orderData: any): Promise<boolean> => {
+  const handleCreateOrder = async (orderData: OrderData): Promise<boolean> => {
     try {
       console.log("Nueva orden de compra creada:", orderData);
       setFormStatus("success");
       return true;
     } catch (error) {
+      console.error("Error:", error);
       setFormStatus("error");
       return false;
     }

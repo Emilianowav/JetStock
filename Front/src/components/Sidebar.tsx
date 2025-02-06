@@ -18,12 +18,12 @@ const Sidebar = () => {
   const [activeView, setActiveView] = useState<string>("info");
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
 
-  const user = localStorage.getItem("user");
   useEffect(() => {
+    const user = localStorage.getItem("user");
     if (!user) {
       router.push("/login"); // Redirige al login si no hay usuario
     }
-  }, [user, router]);
+  }, [router]);
 
   const renderView = () => {
     switch (activeView) {

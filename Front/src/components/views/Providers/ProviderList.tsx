@@ -49,6 +49,7 @@ const ProviderList: React.FC = () => {
       // Aquí se agregarían los datos a la lista
       return true;
     } catch (error) {
+      console.error("Error:", error);
       setFormStatus("error");
       return false;
     }
