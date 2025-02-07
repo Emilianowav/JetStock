@@ -1,14 +1,14 @@
 // src/views/ProviderList.tsx
 
 import React, { useState } from "react";
-import DynamicTable from "../../tables/DynamicTable";
-import SearchBar from "../../filters/SearchBar";
+import DynamicTable from "../../components/tables/DynamicTable";
+import SearchBar from "../../components/filters/SearchBar";
 import styles from "./ProviderList.module.css";
-import Button from "../../buttons/PrimaryButton";
+import Button from "../../components/buttons/PrimaryButton";
 import { FaPlus } from "react-icons/fa6";
 import { FaClipboardList } from "react-icons/fa";
-import ProviderForm from "../../forms/AddProviderForm";
-import FormCompletionHandler from "../FormCompletionHandler";
+import ProviderForm from "../../components/forms/AddProviderForm";
+import FormCompletionHandler from "../../components/forms/FormCompletionHandler";
 
 interface Column {
   key: string;

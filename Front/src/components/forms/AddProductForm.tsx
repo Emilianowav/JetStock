@@ -5,7 +5,7 @@ import { BiArchiveIn } from "react-icons/bi";
 import CategorySelector from "../input/CategorySelector";
 import ProviderSelector from "../input/ProviderSelector";
 import PriceModule from "../productPrice/Price";
-import FormCompletionHandler from "../views/FormCompletionHandler";
+import FormCompletionHandler from "./FormCompletionHandler";
 import Loader from "../loader/Loader";
 import Image from "next/image";
 

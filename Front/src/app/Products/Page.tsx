@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import DynamicTable from "../../tables/DynamicTable";
-import SearchBar from "../../filters/SearchBar";
-import FilterBar from "../../filters/FilterBar";
+import DynamicTable from "../../components/tables/DynamicTable";
+import SearchBar from "../../components/filters/SearchBar";
+import FilterBar from "../../components/filters/FilterBar";
 import styles from "./Products.module.css";
-import Button from "../../buttons/PrimaryButton";
+import Button from "../../components/buttons/PrimaryButton";
 import { FaPlus } from "react-icons/fa6";
 import { FaClipboardList } from "react-icons/fa";
-import AddProductForm from "../../forms/AddProductForm";
-import UpdateStockForm from "../../forms/UpdateStockForm"; 
-import FormCompletionHandler from "../FormCompletionHandler";
+import AddProductForm from "../../components/forms/AddProductForm";
+import UpdateStockForm from "../../components/forms/UpdateStockForm"; 
+import FormCompletionHandler from "../../components/forms/FormCompletionHandler";
 
 interface RowData {
   [key: string]: string | number | boolean | undefined;

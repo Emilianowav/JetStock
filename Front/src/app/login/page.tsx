@@ -4,6 +4,11 @@ import { useRouter } from "next/navigation";
 import styles from "./loginPage.module.css";
 import Link from "next/link";
 
+interface User {
+  username: string;
+  userType: "admin" | "operador";
+}
+
 const LoginPage: React.FC = () => {
   const router = useRouter();
   const [username, setUsername] = useState("");
@@ -24,8 +29,15 @@ const LoginPage: React.FC = () => {
   }, [router]);
 
   // Guarda la sesión en localStorage
-  const saveUserSession = (user: string) => {
-    localStorage.setItem("user", JSON.stringify({ username: user }));
+  const saveUserSession = (user: User) => {
+    // Crea un objeto con la información del usuario y el tipo de usuario
+    const userSession = {
+      username: user.username,
+      userType: "admin" // O lo que sea necesario para el tipo de usuario
+    };
+  
+    // Guarda el objeto en localStorage como un JSON string
+    localStorage.setItem("user", JSON.stringify(userSession));
   };
 
   // Muestra mensajes de error
@@ -37,15 +49,21 @@ const LoginPage: React.FC = () => {
   // Maneja el inicio de sesión
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-
+  
     if (!username || !password) {
       showError("Por favor ingrese usuario y contraseña.");
       return;
     }
-
+  
     if (username === fixedUsername && password === fixedPassword) {
-      saveUserSession(username);
-      router.push("/");
+      // Crear el objeto User
+      const user: User = {
+        username: username,
+        userType: "admin", // O asigna el tipo de usuario según corresponda
+      };
+  
+      saveUserSession(user); // Pasar el objeto User
+      router.push("/"); // Redirigir al inicio
     } else {
       showError("Usuario o contraseña incorrectos.");
     }

@@ -1,9 +1,9 @@
 // ClienteList.tsx
 import React, { useState, useEffect } from "react";
-import DynamicTable from "../../tables/DynamicTable";
+import DynamicTable from "../../components/tables/DynamicTable";
 import styles from "./ClientsView.module.css";
-import SearchBar from "../../filters/SearchBar";
-import Button from "../../buttons/PrimaryButton";
+import SearchBar from "../../components/filters/SearchBar";
+import Button from "../../components/buttons/PrimaryButton";
 import { FaPlus } from "react-icons/fa6";
 import { FaClipboardList } from "react-icons/fa";
 

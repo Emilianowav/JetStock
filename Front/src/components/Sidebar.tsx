@@ -2,12 +2,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import styles from "./Sidebar.module.css";
 import { AuthContext } from "../app/context/AuthContext";
-import InfoPage from "./views/Info";
-import ProductList from "./views/Products/Products";
-import ProviderList from "./views/Providers/ProviderList";
-import PurchaseOrders from "./views/PurchaseOrders/PurchaseOrder";
-import SalesOrders from "./views/SalesOrders/SalesOrder";
-import Clients from "./views/Clients/ClientsView";
+import InfoPage from "../app/Info/Page";
+import ProductList from "../app/Products/Page";
+import ProviderList from "../app/Providers/Page";
+import PurchaseOrders from "../app/PurchaseOrders/Page";
+import SalesOrders from "../app/SalesOrders/Page";
+import Clients from "../app/Clients/Page";
 import Menu from "../components/menu/Menu";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useRouter } from "next/navigation";
