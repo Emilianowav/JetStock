@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./UpdateStockForm.module.css";
 import PrimaryButton from "../buttons/PrimaryButton";
-import { BiCheckCircle, BiErrorCircle } from "react-icons/bi";
+// import { BiCheckCircle, BiErrorCircle } from "react-icons/bi";
 import Loader from "../loader/Loader";
 import SearchBar from "../filters/SearchBar"; // Un selector para elegir el producto
 
@@ -53,7 +53,7 @@ const UpdateStockForm: React.FC<StockFormProps> = ({ onUpdateStock, onCancel }) 
   if (status === "success") {
     return (
       <div className={styles.resultContainer}>
-        <BiCheckCircle size={48} color="green" />
+        {/* <BiCheckCircle size={48} color="green" /> */}
         <p>El stock se actualizó correctamente.</p>
         <PrimaryButton text="Volver" onClick={onCancel} />
       </div>
@@ -63,7 +63,7 @@ const UpdateStockForm: React.FC<StockFormProps> = ({ onUpdateStock, onCancel }) 
   if (status === "error") {
     return (
       <div className={styles.resultContainer}>
-        <BiErrorCircle size={48} color="red" />
+        {/* <BiErrorCircle size={48} color="red" /> */}
         <p>Ocurrió un error al actualizar el stock. Por favor, inténtalo nuevamente.</p>
         <PrimaryButton text="Reintentar" onClick={handleRetry} />
       </div>
@@ -108,7 +108,9 @@ const UpdateStockForm: React.FC<StockFormProps> = ({ onUpdateStock, onCancel }) 
       </div>
 
       <div className={styles.buttons}>
-        <PrimaryButton text="Actualizar" icon={<BiCheckCircle />} />
+        <PrimaryButton text="Actualizar"
+        //  icon={<BiCheckCircle />} 
+         />
         <button type="button" onClick={onCancel} className={styles.secondaryButton}>
           Cancelar
         </button>

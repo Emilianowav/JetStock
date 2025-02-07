@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./DynamicTable.module.css";
-import { FaSort } from "react-icons/fa6";
+// import { FaSort } from "react-icons/fa6";
 
 interface Column {
   key: string;
@@ -31,7 +31,9 @@ const DynamicTable = <T extends RowData>({ columns, data, onActionClick }: Table
             {columns.map((column) => (
               <th key={column.key} className={styles.th}>
                 {column.label}
-                {column.sortable && <button className={styles.sortButton}><FaSort /></button>}
+                {column.sortable && <button className={styles.sortButton}>
+                  {/* <FaSort /> */}
+                  </button>}
               </th>
             ))}
           </tr>
