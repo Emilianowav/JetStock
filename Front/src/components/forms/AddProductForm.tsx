@@ -1,7 +1,8 @@
+"use client";
 import React, { useState } from "react";
 import styles from "./AddProductForm.module.css";
 import PrimaryButton from "../buttons/PrimaryButton";
-// import { BiArchiveIn } from "react-icons/bi";
+import { BiArchiveIn } from "react-icons/bi";
 import CategorySelector from "../input/CategorySelector";
 import ProviderSelector from "../input/ProviderSelector";
 import PriceModule from "../productPrice/Price";
@@ -181,9 +182,7 @@ const AddProductForm: React.FC<ProductFormProps> = ({ onSave, onCancel }) => {
       />
 
       <div className={styles.buttons}>
-        <PrimaryButton text="Guardar"
-        //  icon={<BiArchiveIn />} 
-         />
+        <PrimaryButton text="Guardar" icon={<BiArchiveIn />} />
         <button type="button" onClick={onCancel} className={styles.secondaryButton}>Cancelar</button>
       </div>
     </form>

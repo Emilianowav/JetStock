@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import styles from "./DynamicTable.module.css";
 // import { FaSort } from "react-icons/fa6";

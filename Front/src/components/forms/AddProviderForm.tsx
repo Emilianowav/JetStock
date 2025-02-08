@@ -1,5 +1,5 @@
 // src/forms/ProviderForm.tsx
-
+"use client";
 import React, { useState } from "react";
 import styles from "./AddProviderForm.module.css";
 

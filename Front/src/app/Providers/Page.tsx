@@ -1,5 +1,5 @@
 // src/views/ProviderList.tsx
-
+"use client";
 import React, { useState } from "react";
 import DynamicTable from "../../components/tables/DynamicTable";
 import SearchBar from "../../components/filters/SearchBar";

@@ -1,4 +1,5 @@
 // ClienteList.tsx
+"use client";
 import React, { useState, useEffect } from "react";
 import DynamicTable from "../../components/tables/DynamicTable";
 import styles from "./ClientsView.module.css";

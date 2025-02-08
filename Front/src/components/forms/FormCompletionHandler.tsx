@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import SuccessMessage from '../succesMessage/SuccesMessage';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';

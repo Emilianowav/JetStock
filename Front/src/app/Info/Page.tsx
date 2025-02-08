@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import styles from "./Info.module.css";
 import { FaInfoCircle } from "react-icons/fa";

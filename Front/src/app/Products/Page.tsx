@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import DynamicTable from "../../components/tables/DynamicTable";
 import SearchBar from "../../components/filters/SearchBar";

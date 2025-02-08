@@ -1,4 +1,5 @@
 // components/buttons/PrimaryButton.tsx
+"use client";
 import React from 'react';
 import styles from './PrimaryButton.module.css';
 

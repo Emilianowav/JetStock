@@ -1,11 +1,12 @@
 // components/buttons/MenuButton.tsx
+"use client";
 import React from "react";
 import styles from "./MenuButton.module.css";
 
 interface ButtonProps {
   text: string;
   onClick: () => void;
-  // icon: React.ReactNode; 
+  icon: React.ReactNode; // Acepta un icono
   type?: "button" | "submit" | "reset";
   className?: string;
   isActive?: boolean; // Nueva prop para indicar si el botón está activo
@@ -14,6 +15,7 @@ interface ButtonProps {
 const MenuButton: React.FC<ButtonProps> = ({
   text,
   onClick,
+  icon,
   type = "button",
   className = "",
   isActive = false,
@@ -24,7 +26,7 @@ const MenuButton: React.FC<ButtonProps> = ({
       className={`${styles.button} ${isActive ? styles.active : ""} ${className}`}
       onClick={onClick}
     >
-      {/* <span className={styles.icon}>{icon}</span> */}
+      <span className={styles.icon}>{icon}</span> {/* Muestra el icono */}
       {text}
     </button>
   );

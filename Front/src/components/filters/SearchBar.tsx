@@ -1,6 +1,8 @@
+"use client";
 import React, { useState } from "react";
 import styles from "./SearchBar.module.css";
-// import { FaSearch } from 'react-icons/fa'; 
+import { FaSearch } from 'react-icons/fa';  // Importamos el ícono de lupa
+
 interface SearchBarProps {
   onSearch: (term: string) => void;
   onSelect?: (productId: number) => void;  // Nueva prop opcional
@@ -30,7 +32,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, onSelect }) => {
         className={styles.input}
       />
       <button onClick={handleSearch} className={styles.button}>
-        {/* <FaSearch size={16} /> */}
+        <FaSearch size={16} />
       </button>
 
       {/* Simulación de una lista de productos */}

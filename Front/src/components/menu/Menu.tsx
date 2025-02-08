@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-// import { FaCog, FaUser, FaFileAlt, FaAddressBook, FaTruck, FaShoppingCart, FaReceipt } from "react-icons/fa";
-// import { FaBoxArchive } from "react-icons/fa6";
+import { FaCog, FaUser, FaFileAlt, FaAddressBook, FaTruck, FaShoppingCart, FaReceipt } from "react-icons/fa";
+import { FaBoxArchive } from "react-icons/fa6";
 import MenuButton from "../buttons/MenuButton";
 import styles from "./Menu.module.css";
 import LogoutButton from "../buttons/LogoutButton";
@@ -28,47 +28,21 @@ const Menu: React.FC<ChangeMenuProps> = ({ userType, onMenuSelect, activeView })
 
   const menuOptions = {
     admin: [
-      { id: "productList", label: "Productos", 
-        // icon: <FaBoxArchive /> },
-      },
-      { id: "purchaseOrders", label: "Órdenes de Compra", 
-        // icon: <FaShoppingCart /> },
-      },
-      { id: "salesOrders", label: "Órdenes de Venta", 
-        // icon: <FaReceipt /> },
-      },
-      { id: "providerList", label: "Proveedores",
-        //  icon: <FaTruck /> },
-      },
-      { id: "customerList", label: "Clientes", 
-        // icon: <FaAddressBook /> },
-      },
-      { id: "reports", label: "Reportes", 
-        // icon: <FaFileAlt /> },
-      },
-      { id: "settings", label: "Configuraciones",
-        //  icon: <FaCog /> },
-      },
+      { id: "productList", label: "Productos", icon: <FaBoxArchive /> },
+      { id: "purchaseOrders", label: "Órdenes de Compra", icon: <FaShoppingCart /> },
+      { id: "salesOrders", label: "Órdenes de Venta", icon: <FaReceipt /> },
+      { id: "providerList", label: "Proveedores", icon: <FaTruck /> },
+      { id: "customerList", label: "Clientes", icon: <FaAddressBook /> },
+      { id: "reports", label: "Reportes", icon: <FaFileAlt /> },
+      { id: "settings", label: "Configuraciones", icon: <FaCog /> },
     ],
     operador: [
-      { id: "productList", label: "Productos", 
-        // icon: <FaBoxArchive /> },
-      },
-      { id: "purchaseOrders", label: "Órdenes de Compra", 
-        // icon: <FaShoppingCart /> },
-      },
-      { id: "salesOrders", label: "Órdenes de Venta", 
-        // icon: <FaReceipt /> },
-      },
-      { id: "providerList", label: "Proveedores",
-        //  icon: <FaTruck /> },
-      },
-      { id: "customerList", label: "Clientes", 
-        // icon: <FaAddressBook /> },
-      },
-      { id: "profile", label: "Perfil", 
-        // icon: <FaUser /> },
-      },
+      { id: "productList", label: "Productos", icon: <FaBoxArchive /> },
+      { id: "purchaseOrders", label: "Órdenes de Compra", icon: <FaShoppingCart /> },
+      { id: "salesOrders", label: "Órdenes de Venta", icon: <FaReceipt /> },
+      { id: "providerList", label: "Proveedores", icon: <FaTruck /> },
+      { id: "customerList", label: "Clientes", icon: <FaAddressBook /> },
+      { id: "profile", label: "Perfil", icon: <FaUser /> },
     ],
   };
 
@@ -88,7 +62,7 @@ const Menu: React.FC<ChangeMenuProps> = ({ userType, onMenuSelect, activeView })
               key={option.id}
               text={option.label}
               onClick={() => onMenuSelect(option.id)}
-              // icon={option.icon}
+              icon={option.icon}
               isActive={activeView === option.id}
             />
           ))}

@@ -1,7 +1,8 @@
+"use client";
 import React, { useState } from "react";
 import styles from "./SaleOrderForm.module.css";
 import PrimaryButton from "../buttons/PrimaryButton";
-// import { BiCheckCircle, BiErrorCircle } from "react-icons/bi";
+import { BiCheckCircle, BiErrorCircle } from "react-icons/bi";
 import Loader from "../loader/Loader";
 import SearchBar from "../filters/SearchBar"; // Componente para seleccionar productos
 
@@ -56,7 +57,7 @@ const SalesForm: React.FC<SalesFormProps> = ({ onCreateSale, onCancel }) => {
   if (status === "success") {
     return (
       <div className={styles.resultContainer}>
-        {/* <BiCheckCircle size={48} color="green" /> */}
+        <BiCheckCircle size={48} color="green" />
         <p>La venta fue registrada correctamente.</p>
         <PrimaryButton text="Volver" onClick={onCancel} />
       </div>
@@ -66,7 +67,7 @@ const SalesForm: React.FC<SalesFormProps> = ({ onCreateSale, onCancel }) => {
   if (status === "error") {
     return (
       <div className={styles.resultContainer}>
-        {/* <BiErrorCircle size={48} color="red" /> */}
+        <BiErrorCircle size={48} color="red" />
         <p>Ocurrió un error al registrar la venta. Por favor, inténtalo nuevamente.</p>
         <PrimaryButton text="Reintentar" onClick={handleRetry} />
       </div>
@@ -155,9 +156,7 @@ const SalesForm: React.FC<SalesFormProps> = ({ onCreateSale, onCancel }) => {
         </div>
 
       <div className={styles.buttons}>
-        <PrimaryButton text="Registrar Venta" 
-        // icon={<BiCheckCircle />} 
-        />
+        <PrimaryButton text="Registrar Venta" icon={<BiCheckCircle />} />
         <button type="button" onClick={onCancel} className={styles.secondaryButton}>
           Cancelar
         </button>

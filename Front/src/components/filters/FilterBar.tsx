@@ -1,5 +1,6 @@
+"use client";
 import React, { useState } from "react";
-// import { FaUndo, FaFilter } from 'react-icons/fa';
+import { FaUndo, FaFilter } from 'react-icons/fa';
 import styles from "./FilterBar.module.css";
 
 interface FilterBarProps {
@@ -36,7 +37,7 @@ const FilterBar: React.FC<FilterBarProps> = ({ onFilterChange }) => {
         className={styles.filterButton}
         onClick={() => setShowFilters(!showFilters)}
       >
-        {/* <FaFilter /> */}
+        <FaFilter />
         <span className={styles.filterButtonText}>Filtros</span>
       </button>
   
@@ -116,7 +117,7 @@ const FilterBar: React.FC<FilterBarProps> = ({ onFilterChange }) => {
               Aplicar filtros
             </button>
             <button onClick={handleResetFilters} className={styles.resetButton}>
-              {/* <FaUndo />  */}
+              <FaUndo /> {/* Ícono de reciclaje */}
             </button>
           </div>
         </div>
